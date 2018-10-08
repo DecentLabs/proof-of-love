@@ -1,3 +1,60 @@
 body {
-    background: yellow;
+    display: grid;
+    grid-template-columns: 15px 1fr 15px;
+    grid-template-rows: 15px 70px 1fr 15px;
+    padding: 0;
+    margin: 0;
+    font-family: 'Waiting for the Sunrise', cursive;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-column: 2 / span 1;
+    grid-row: 2 / span 1;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    grid-column: 2 / span 1;
+    grid-row: 3 / span 1;
+}
+
+img {
+    max-width: 400px;
+    margin-bottom: 20px;
+}
+
+form {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #194959;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.form-row.centered {
+    justify-content: center;
+}
+
+.w-input {
+    font-family: inherit;
+}
+
+.w-button {
+    font-size: 20px;
 }
