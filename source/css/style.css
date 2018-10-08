@@ -29,6 +29,10 @@ img {
     margin-bottom: 20px;
 }
 
+p {
+    font-size: 18px;
+}
+
 form {
     width: 100%;
     max-width: 400px;
@@ -54,6 +58,7 @@ form {
 
 .w-input {
     font-family: inherit;
+    font-size: 18px;
 }
 
 .w-button {
