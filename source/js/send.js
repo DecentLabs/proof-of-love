@@ -19,7 +19,6 @@ window.addEventListener('load', function () {
 
         contract.prove(name1, name2, function(error, result) {
           window.location.href=`/proof.html?${result}`
-          console.log(error, result);
         });
 
       }
