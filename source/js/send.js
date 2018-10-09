@@ -1,4 +1,6 @@
-import {ABI, ADDRESS} from './contract.js'
+import { ABI, ADDRESS } from './contract.js'
+import { pol }  from './lib.js'
+
 
 window.addEventListener('load', function () {
 
@@ -9,18 +11,17 @@ window.addEventListener('load', function () {
   // Checking if Web3 has been injected by the browser (Mist/MetaMask)
   if (typeof web3 !== 'undefined') {
     // Use Mist/MetaMask's provider
-    const web3js = new Web3(web3.currentProvider)
+    const web3js = pol.init(web3.currentProvider)
 
     sendButton.addEventListener('click', function () {
       const name1 = name1Element.value
       const name2 = name2Element.value
       if (name1 && name2 && name1.trim().length && name2.trim().length) {
-        const contract = web3js.eth.contract(ABI).at(ADDRESS)
+        const contract = pol.initContract(web3js, ABI, ADDRESS)
 
-        contract.prove(name1, name2, function(error, result) {
-          window.location.href=`/proof.html?${result}`
-          console.log(error, result);
-        });
+        contract.methods.prove(name1, name2).send().then(result =>  {
+          window.location.href = `/proof.html?${result}`
+        })
 
       }
     })

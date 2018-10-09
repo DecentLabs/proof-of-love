@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>hasheart</title>
+  </head>
+  <body>
+    <style>
+    	.heart {
+		  display: grid;
+		  grid-template-columns: repeat(5, 60px);
+		  grid-template-rows: repeat(4, 60px);
+		}
+
+		span {
+		  grid-column: var(--column-pos);
+		  grid-row: var(--row-pos);
+		  background: pink;
+		}
+    </style>
+    <div class="heart">
+	  <span></span>
+	  <span></span>
+	  <span></span>
+	  <span></span>
+	  <span></span>
+	  <span></span>
+	  <span></span>
+	  <span></span>
+	  <span></span>
+	  <span></span>
+	  <span></span>
+	</div>
+	<script>
+		let random = (Math.random() * 10).toFixed(0)
+		let code = '0x02989f908d8349cf9f248ebd02217da5d61fa27a364034dcc1405fa43dd49571'
+		let spans = document.querySelectorAll('span')
+		let hexgroups = []
+		let opacities = []
+
+		code = code.replace('x', random);
+
+		while (code.length > 0) {
+		  let hex = code.substr(0,6)
+		  let percent = parseInt(hex, 16) / parseInt('ffffff', 16)
+		  opacities.push(percent + 0.3)
+		  hexgroups.push(hex)
+		  code = code.substr(6, code.length - 1)
+		}
+
+		opacities.sort()
+
+		spans.forEach((span, i) => {
+		    span.style.background = `pink`
+		    span.style.opacity = opacities[i]
+		})
+
+		let positions = [
+		  [0, 1, 0, 1, 0],
+		  [1, 1, 1, 1, 1],
+		  [0, 1, 1, 1, 0],
+		  [0, 0, 1, 0, 0]
+		]
+		let pixel = 0
+
+		for (let i = 0; i < positions.length; i++) {
+		  for (let j = 0; j < positions[i].length; j++) {
+		    if (positions[i][j] === 1) {
+		        spans[pixel].style.setProperty('--column-pos', j + 1)
+		      spans[pixel].style.setProperty('--row-pos', i + 1)
+		      pixel++
+		        console.log(i, j)
+		    }
+		  }
+		}
+
+
+
+	</script>
+  </body>
+</html>
