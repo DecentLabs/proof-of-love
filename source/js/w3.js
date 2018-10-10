@@ -33,6 +33,14 @@ export function getLovers (tx_hash) {
       }
       update({names})
       resolve(names)
+
+      web3js.eth.getBlock(rcpt.blockNumber, function (error, block) {
+        if (error !== null) {
+          console.log('Error:' + error)
+        }
+        console.log("timestamp (UTC): ", new Date(block.timestamp * 1000).toISOString());
+      })
+
     })
   })
 }
