@@ -24,7 +24,7 @@ export function getWeb3FromURL (url) {
 }
 
 export function getLovers (tx_hash) {
-  return new Promise(resolve => {
+  const names = new Promise(resolve => {
     web3js.eth.getTransactionReceipt(tx_hash, function (error, rcpt) {
       const events = abiDecode.decodeLogs(rcpt.logs)
       let names = []
@@ -32,17 +32,21 @@ export function getLovers (tx_hash) {
         names = events[0].events.map(eventData => eventData.value)
       }
       update({names})
-      resolve(names)
-
-      web3js.eth.getBlock(rcpt.blockNumber, function (error, block) {
-        if (error !== null) {
-          console.log('Error:' + error)
-        }
-        console.log("timestamp (UTC): ", new Date(block.timestamp * 1000).toISOString());
-      })
-
+      resolve(rcpt)
     })
   })
+
+
+
+  return names.then((rcpt) => new Promise(resolve => {
+    web3js.eth.getBlock(rcpt.blockNumber, function (error, block) {
+      if (error !== null) {
+        console.log('Error:' + error)
+      }
+      update({timestamp: new Date(block.timestamp * 1000).toISOString()})
+      resolve();
+    })
+  }))
 }
 
 export function prove (name1, name2) {
