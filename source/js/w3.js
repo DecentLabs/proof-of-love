@@ -1,6 +1,6 @@
 import abiDecode from './abidecode.js'
 import { ABI, ADDRESS } from './contract.js'
-import { update, getState, onStateChange } from './state.js'
+import { update, onStateChange } from './state.js'
 
 abiDecode.addABI(ABI)
 let web3js = null
@@ -47,31 +47,24 @@ export function prove (name1, name2) {
 
 export function startPollingForConfirmation (tx_hash, maxConfirmation) {
 
-  let loading = false
-
   const poll = function () {
     console.log('poll')
     return new Promise((resolve, reject) => {
       web3js.eth.getTransaction(tx_hash, function (error, response) {
         if (error !== null) {
-
-          loading = false
-          update({pending: false, hasError: true, error})
+          update({pending: false, hasError: true, loading: false, error})
           reject(error)
         } else {
           if (response.blockNumber === null) {
-
-            loading = false
-            update({pending: true})
+            update({pending: true, loading: false})
             resolve()
           } else {
             web3js.eth.getBlockNumber(function (error, latestBlockNumber) {
               if (error !== null) {
                 console.log('Error:' + error)
               }
-              const numConfirmations = (latestBlockNumber - response.blockNumber) + 1
-              loading = false
-              update({pending: false, confirmed: numConfirmations})
+              const numConfirmations = (latestBlockNumber - response.blockNumber)
+              update({pending: false, confirmed: numConfirmations, loading: false})
               resolve()
             })
           }
@@ -80,10 +73,11 @@ export function startPollingForConfirmation (tx_hash, maxConfirmation) {
     })
   }
 
+  update({loading: false})
 
-  onStateChange(({state, updatedKeys}) => {
-    if (!loading && (state.pending || state.confirmed < maxConfirmation)) {
-      loading = true;
+  onStateChange(({state}) => {
+    if (!state.loading && (state.pending || state.confirmed < maxConfirmation)) {
+      update({loading: true})
       setTimeout(() => poll(), 1000)
     }
   })
