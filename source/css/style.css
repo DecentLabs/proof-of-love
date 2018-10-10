@@ -69,13 +69,7 @@ form {
 }
 
 .proof-page {
-    font-family: 'IBM Plex Mono';
-}
-
-.proof-page h2 {
-    font-size: 36px;
-    margin: 30px;
-    font-weight: 400;
+    font-family: 'IBM Plex Mono', sans-serif;
 }
 
 .proof-page p {
@@ -83,14 +77,4 @@ form {
     font-size: 20px;
     margin: 30px;
     overflow-wrap: break-word;
-}
-
-.row {
-    width: 100%;
-    max-width: 500px;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
 }
