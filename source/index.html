@@ -7,14 +7,15 @@
   </div>
   <form>
     <div class="form-row">
-      <wired-input placeholder="name1" class="w-input"></wired-input>
+      <wired-input placeholder="name1" class="w-input" id="name1"></wired-input>
       <span>loves</span>
-      <wired-input placeholder="name2" class="w-input"></wired-input>
+      <wired-input placeholder="name2" class="w-input" id="name2"></wired-input>
     </div>
     <div class="form-row centered">
-      <wired-button elevation="2" class="w-button">Prove Love</wired-button>
+      <wired-button elevation="2" class="w-button" id="send">Prove Love</wired-button>
     </div>
   </form>
 </main>
-<script src="https://unpkg.com/wired-elements@latest/dist/wired-elements.bundled.min.js"></script>
-<script src="js/send.js"></script>
+<script src="https://unpkg.com/wired-elements@0.8.1/dist/wired-elements.bundled.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
+<script src="js/send.js" type="module"></script>
