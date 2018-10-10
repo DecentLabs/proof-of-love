@@ -75,7 +75,7 @@ export function startPollingForConfirmation (tx_hash, maxConfirmation) {
               if (error !== null) {
                 console.log('Error:' + error)
               }
-              const numConfirmations = (latestBlockNumber - response.blockNumber)
+              const numConfirmations = (latestBlockNumber - response.blockNumber) + 1
               update({pending: false, confirmed: numConfirmations, loading: false})
               resolve()
             })
