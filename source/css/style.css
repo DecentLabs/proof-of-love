@@ -1,7 +1,9 @@
 body {
     display: grid;
-    grid-template-columns: 15px 1fr 15px;
-    grid-template-rows: 15px 70px 1fr 15px;
+    width: 100%;
+    min-height: 100vh;
+    grid-template-columns: 15px auto 15px;
+    grid-template-rows: 15px 70px auto 15px;
     padding: 0;
     margin: 0;
     font-family: 'Waiting for the Sunrise', cursive;
@@ -19,6 +21,7 @@ header {
 main {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     grid-column: 2 / span 1;
     grid-row: 3 / span 1;
@@ -27,6 +30,10 @@ main {
 img {
     max-width: 400px;
     margin-bottom: 20px;
+}
+
+p {
+    font-size: 18px;
 }
 
 form {
@@ -54,8 +61,20 @@ form {
 
 .w-input {
     font-family: inherit;
+    font-size: 18px;
 }
 
 .w-button {
     font-size: 20px;
+}
+
+.proof-page {
+    font-family: 'IBM Plex Mono', sans-serif;
+}
+
+.proof-page p {
+    width: 100%;
+    font-size: 20px;
+    margin: 30px;
+    overflow-wrap: break-word;
 }
