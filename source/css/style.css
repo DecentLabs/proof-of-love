@@ -74,7 +74,13 @@ form {
 
 .proof-page p {
     width: 100%;
-    font-size: 20px;
+    font-size: 14px;
     margin: 30px;
     overflow-wrap: break-word;
+    text-align: center;
+}
+
+p > .tx {
+    font-size:20px;
+    line-height: 2em;
 }
