@@ -1,5 +1,5 @@
 import { renderMain } from './partials.js'
-import { createHeart } from './heart.js'
+import { createHeart, getColorPalette } from './heart.js'
 import {
   onStateChange,
   update
@@ -35,10 +35,10 @@ onStateChange(({state, oldState}) => {
   }
 })
 
-onStateChange(({state, updatedKeys}) => {
+onStateChange(({updatedKeys}) => {
   if (updatedKeys.has('names')) {
     const canvas = document.getElementById('heart-canvas')
-
-    createHeart(tx_hash, canvas, state.names[0], state.names[1])
+    const palette = getColorPalette()
+    createHeart(tx_hash, canvas, palette)
   }
 })

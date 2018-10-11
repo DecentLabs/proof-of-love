@@ -1,17 +1,25 @@
 import { getWeb3, prove, getNetwork } from './w3.js'
+import { createHeart, getColorPalette } from './heart.js'
 
 window.addEventListener('load', function () {
-
+  const loveForm = document.getElementById('love-form')
   const name1Element = document.getElementById('name1')
   const name2Element = document.getElementById('name2')
-  const sendButton = document.getElementById('send')
+  const homeCanvas = document.getElementById('home-canvas')
+  const hash = `0x${'f00f'.repeat(16)}`
+  const palette = getColorPalette(true)
+
+  createHeart(hash, homeCanvas, palette)
+
 
   // Checking if Web3 has been injected by the browser (Mist/MetaMask)
   if (typeof web3 !== 'undefined') {
     // Use Mist/MetaMask's provider
     const web3js = getWeb3(web3.currentProvider)
 
-    sendButton.addEventListener('click', function () {
+    loveForm.addEventListener('submit', function (event) {
+      event.preventDefault()
+
       const name1 = name1Element.value
       const name2 = name2Element.value
       if (name1 && name2 && name1.trim().length && name2.trim().length) {

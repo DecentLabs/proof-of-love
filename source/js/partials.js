@@ -10,6 +10,8 @@ const confirmed = (state) => html`
 </div>
 <p>Carved forever in the Blockchain since ${state.timestamp} at<br><span class="tx">${state.transactionID}</span></p>
 <a href="" id="dl-canvas" download="${state.names && state.names[0]}_heart_${state.names && state.names[1]}.png">${!state.pending && 'Download your unique heart'}</a>
+<a>Save URL</a>
+<a>Print</a>
 `
 
 const main = (state) => html`${state.pending ? pending : confirmed(state)}`

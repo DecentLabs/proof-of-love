@@ -1,4 +1,4 @@
-export const createHeart = (hash, canvas) => {
+export const createHeart = (hash, canvas, palette) => {
   const code = hash.slice(2)
   const ctx = canvas.getContext('2d')
   canvas.width = 160
@@ -34,7 +34,6 @@ export const createHeart = (hash, canvas) => {
 
 
   function makeHeart(hash) {
-    const palette = getColorPalette()
     const positions = getPositions()
 
     for (let i = 0; i < 64; i++) {
@@ -66,25 +65,27 @@ export const createHeart = (hash, canvas) => {
   }
 
 
-  function getColorPalette() {
-    let palette = [[], []]
-    for (let i = 0; i < 8; i++) {
-      let hue = 342
-      let saturation = '80%'
-      let lightness = i < 4 ? `${i * 14 + 8}%` : `${i * 10}%`
-      let color = `hsl(${hue}, ${saturation}, ${lightness})`
-      if (i < 4) {
-        palette[0].push(color)
-      } else {
-        palette[1].push(color)
-      }
-    }
-    return palette
-  }
-
   function createDownload() {
     let downloadButton = document.getElementById('dl-canvas')
 
-    downloadButton.href = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream')
+    if (downloadButton !== null) {
+      downloadButton.href = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream')
+    }
   }
+}
+
+export function getColorPalette(bw=false) {
+  let palette = [[], []]
+  for (let i = 0; i < 8; i++) {
+    let hue = 342
+    let saturation = bw ? '0%' : '80%'
+    let lightness = i < 4 ? `${i * 14 + 8}%` : `${i * 10}%`
+    let color = `hsl(${hue}, ${saturation}, ${lightness})`
+    if (i < 4) {
+      palette[0].push(color)
+    } else {
+      palette[1].push(color)
+    }
+  }
+  return palette
 }

@@ -6,7 +6,7 @@ body {
     grid-template-rows: 15px 70px auto 15px;
     padding: 0;
     margin: 0;
-    font-family: 'Waiting for the Sunrise', cursive;
+    font-family: 'IBM Plex Mono', sans-serif;
     background: rgb(251, 251, 251)
 }
 
@@ -52,6 +52,7 @@ form {
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    padding: 10px 0;
     margin-bottom: 20px;
 }
 
@@ -60,16 +61,20 @@ form {
 }
 
 .w-input {
+    max-width: 35%;
+    padding: 5px;
     font-family: inherit;
     font-size: 18px;
 }
 
 .w-button {
+    padding: 10px;
     font-size: 20px;
-}
-
-.proof-page {
-    font-family: 'IBM Plex Mono', sans-serif;
+    font-family: inherit;
+    color: white;
+    border: 0;
+    border-radius: 3px;
+    background: #e91f5d;
 }
 
 .proof-page p {
@@ -94,4 +99,10 @@ p > .tx {
 
 canvas {
     margin: 0 60px;
+}
+
+@media print {
+    #dl-canvas {
+        display: none !important;
+    }
 }

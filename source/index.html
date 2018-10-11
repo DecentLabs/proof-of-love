@@ -3,18 +3,17 @@
 </header>
 <main>
   <div>
-    <img src="assets/heart.jpg">
+    <canvas id="home-canvas"></canvas>
   </div>
-  <form>
+  <form id="love-form">
     <div class="form-row">
-      <wired-input placeholder="name1" class="w-input" id="name1"></wired-input>
+      <input placeholder="name1" class="w-input" id="name1">
       <span>loves</span>
-      <wired-input placeholder="name2" class="w-input" id="name2"></wired-input>
+      <input placeholder="name2" class="w-input" id="name2">
     </div>
     <div class="form-row centered">
-      <wired-button elevation="2" class="w-button" id="send">Prove Love</wired-button>
+      <button class="w-button" id="send" type="submit">Prove Love</button>
     </div>
   </form>
 </main>
-<script src="https://unpkg.com/wired-elements@0.8.1/dist/wired-elements.bundled.min.js"></script>
 <script src="js/send.js" type="module"></script>
