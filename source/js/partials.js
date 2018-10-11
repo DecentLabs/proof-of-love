@@ -18,6 +18,7 @@ const confirmed = (state) => html`
 </div>
 <div class="print-wrapper">
 ${getSvg(state.imageURL, state.names, state.transactionID)}
+<img src="assets/origami.png">
 </div>
 `
 

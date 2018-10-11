@@ -127,9 +127,15 @@ canvas {
 
 @media print {
 
-    .print-wrapper{
+    .print-wrapper {
         width: 100%;
         display: block;
+        text-align: center;
+    }
+
+    .print-wrapper img {
+        width: 100%;
+        margin: 20px 0;
     }
 
     svg {
@@ -140,7 +146,6 @@ canvas {
         font-family: 'IBM Plex Mono', monospace;
     }
 
-    header,
     .row {
         display: none;
     }
