@@ -34,6 +34,7 @@ img {
 
 p {
     font-size: 18px;
+    text-align: center;
 }
 
 form {
@@ -69,12 +70,15 @@ form {
 
 .w-button {
     padding: 10px;
+    margin: 0 10px;
     font-size: 20px;
     font-family: inherit;
     color: white;
     border: 0;
     border-radius: 3px;
     background: #e91f5d;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .proof-page p {
@@ -85,14 +89,29 @@ form {
     text-align: center;
 }
 
+.proof-page h1 {
+    font-size: 32px;
+    letter-spacing: .1em;
+}
+
+#load-canvas {
+    animation: beat 1.5s infinite;
+}
+
 p > .tx {
-    font-size:20px;
+    font-size: 20px;
     line-height: 2em;
 }
 
 .row {
-    width: 100%;
     display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
@@ -102,7 +121,13 @@ canvas {
 }
 
 @media print {
-    #dl-canvas {
+    .w-button {
         display: none !important;
+    }
+}
+
+@keyframes beat {
+    50% {
+        transform: scale(0.9);
     }
 }
