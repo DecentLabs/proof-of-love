@@ -36,15 +36,13 @@ export function getLovers (tx_hash) {
     })
   })
 
-
-
   return names.then((rcpt) => new Promise(resolve => {
     web3js.eth.getBlock(rcpt.blockNumber, function (error, block) {
       if (error !== null) {
         console.log('Error:' + error)
       }
       update({timestamp: new Date(block.timestamp * 1000).toISOString()})
-      resolve();
+      resolve()
     })
   }))
 }
@@ -97,4 +95,27 @@ export function startPollingForConfirmation (tx_hash, maxConfirmation) {
   poll()
 }
 
+export function getNetwork () {
+  return new Promise(resolve => {
+    web3.version.getNetwork((err, netId) => resolve(netId))
+  })
+}
 
+export function getNetworkUrl (id) {
+  switch (id) {
+    case '1':
+      return 'https://infura.io/'
+      break
+    case '3':
+      return 'https://ropsten.infura.io/'
+      break
+    case '4':
+      return 'https://rinkeby.infura.io/'
+      break
+    case '42':
+      return 'https://kovan.infura.io/'
+      break
+    default:
+      return 'https://infura.io/'
+  }
+}

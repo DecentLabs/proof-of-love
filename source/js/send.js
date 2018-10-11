@@ -1,4 +1,4 @@
-import {getWeb3, prove} from './w3.js'
+import { getWeb3, prove, getNetwork } from './w3.js'
 
 window.addEventListener('load', function () {
 
@@ -15,7 +15,13 @@ window.addEventListener('load', function () {
       const name1 = name1Element.value
       const name2 = name2Element.value
       if (name1 && name2 && name1.trim().length && name2.trim().length) {
-        prove(name1, name2).then(result => (window.location.href=`/proof.html?${result}`))
+        Promise.all([
+          prove(name1, name2),
+          getNetwork()
+        ]).then(
+          ([hash, network]) => {
+            window.location.href = `/proof.html?${hash}${ network !== '1' ? '@' + network : ''}`
+          })
       }
     })
   } else {
