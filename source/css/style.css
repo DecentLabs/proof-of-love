@@ -120,14 +120,24 @@ canvas {
     margin: 0 60px;
 }
 
-svg {
+
+.print-wrapper {
     display: none;
 }
 
 @media print {
-    svg {
+
+    .print-wrapper{
         width: 100%;
         display: block;
+    }
+
+    svg {
+        width: 100%;
+    }
+
+    svg text {
+        font-family: 'IBM Plex Mono', monospace;
     }
 
     header,

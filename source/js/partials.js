@@ -16,7 +16,9 @@ const confirmed = (state) => html`
 <a href="" class="w-button" id="dl-canvas" download="${state.names && state.names[0]}_heart_${state.names && state.names[1]}.png">${!state.pending && 'Download your unique heart'}</a>
 <button class="w-button" onclick="window.print();return false;">Print</button>
 </div>
+<div class="print-wrapper">
 ${getSvg(state.imageURL, state.names, state.transactionID)}
+</div>
 `
 
 const main = (state) => html`${confirmed(state)}`
