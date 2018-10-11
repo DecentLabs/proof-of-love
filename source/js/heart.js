@@ -1,93 +1,90 @@
-export const createHeart = (hash, canvas, name1 = 'Adam', name2 = 'Eve') => {
-  let code = hash.slice(2) || '02989f908d8349cf9f248ebd02217da5d61fa27a364034dcc1405fa43dd49571'
-  let ctx = canvas.getContext('2d')
-  let bgFontSize = 66
-  let heartArea = 240
-  canvas.width = bgFontSize * 0.61 * 16
-  canvas.height = bgFontSize * 1.2 * 4
+export const createHeart = (hash, canvas) => {
+  const code = hash.slice(2)
+  const ctx = canvas.getContext('2d')
+  canvas.width = 160
+  canvas.height = 160
 
-  let start = {
-    x: canvas.width / 2 - heartArea / 2,
-    y: canvas.height / 2 - heartArea / 2
-  }
+  const positions = makeHeart(code)
+  drawHeart(positions)
 
-  let colorpalette = getColorPalette()
+  createDownload()
 
-  drawHash(code)
-  drawHeart()
-  drawNames(name1, name2)
 
-  function drawHeart() {
-    let positions = [
-      [0, 1, 0, 1, 0],
-      [1, 1, 1, 1, 1],
-      [1, 1, 1, 1, 1],
-      [0, 1, 1, 1, 0],
-      [0, 0, 1, 0, 0]
-    ]
+  function getPositions() {
+    const ascii = '00001111000011110000000111111001111110000011111111111111110001111111111111111110011111111111111111101111111111111111111111111111111111111111111111111111111111110111111111111111111001111111111111111110001111111111111111000011111111111111110000011111111111111000000011111111111100000000011111111110000000000011111111000000000000011111100000000000000011110000000000000000011000000000'
 
-    const size = heartArea / 5
-    let cell = 0
-
-    for (let i = 0; i < positions.length; i++) {
-      for (let j = 0; j < positions[i].length; j++) {
-        if (positions[i][j] === 1) {
-          drawPixels(j, i, cell, size)
-          cell++
+    let positions = []
+    for (let i = 0; i < ascii.length; i++) {
+      if (ascii[i] === '1') {
+        let pos = {
+          x: i % 20,
+          y: Math.floor(i / 20)
         }
+        positions.push(pos)
       }
+
+    }
+
+    return positions
+  }
+
+  function getHexChunk(hex) {
+    return parseInt(hex, 16).toString(2).padStart(4, '0')
+  }
+
+
+  function makeHeart(hash) {
+    const palette = getColorPalette()
+    const positions = getPositions()
+
+    for (let i = 0; i < 64; i++) {
+     const hex = hash[i]
+     const binary = getHexChunk(hex)
+
+     for (let j = 0; j < 4; j++) {
+       const bit = binary[j]
+       const color = palette[parseInt(bit, 10)][j]
+       const index = i * 4 + j
+       positions[index].color = color
+     }
+    }
+
+    return positions
+  }
+
+  function drawHeart(positions) {
+    const size = canvas.width / 20
+    for (let i = 0; i < positions.length; i++) {
+      let pixel = positions[i]
+      ctx.fillStyle = pixel.color
+      ctx.fillRect(
+        pixel.x * size,
+        pixel.y * size,
+        size, size
+      )
     }
   }
 
-  function drawPixels(x, y,  cell, size) {
-    let dot = size / 2
-    let cellpixel = cell * 4
-    for (let i = 0; i < 2; i++) {
-      for (let j = 0; j < 2; j++) {
-        ctx.fillStyle = colorpalette[code[cellpixel]]
-        ctx.fillRect(
-          start.x + x * size + j * dot,
-          start.y + y * size + i * dot,
-          dot, dot)
-        cellpixel++
-      }
-    }
-  }
-
-  function drawNames(name1, name2) {
-    ctx.font = '36px IBM Plex Mono'
-    ctx.textAlign = 'right'
-    ctx.fillText(name1, canvas.width / 2 - (heartArea * 2 / 3), canvas.height / 2)
-    ctx.textAlign = 'left'
-    ctx.fillText(name2, canvas.width / 2 + (heartArea * 2 / 3), canvas.height / 2)
-  }
-
-  function drawHash(code) {
-    const lineHeight = 1.1
-
-    ctx.font = `${bgFontSize}px IBM Plex Mono`
-    ctx.fillStyle = '#ededed'
-    ctx.textAlign = 'left'
-
-    for (let i = 0; i < Math.ceil(code.length / 16); i++) {
-      let chunk = code.slice(i*16, (i + 1) * 16)
-      ctx.fillText(chunk, 0, (i+1) * bgFontSize * lineHeight)
-    }
-  }
 
   function getColorPalette() {
-    let palette = {}
-    for (let i = 0; i < 16; i++) {
-      let index = i.toString(16)
-      let r = i * 16 + 8
-      let b = i * 16 * 0.52 + 8
-      let g = i * 16 * 0.32 + 8
-      palette[index] = `rgb(${r.toFixed(0)}, ${g.toFixed(0)}, ${b.toFixed(0)})`
+    let palette = [[], []]
+    for (let i = 0; i < 8; i++) {
+      let hue = 342
+      let saturation = '80%'
+      let lightness = i < 4 ? `${i * 14 + 8}%` : `${i * 10}%`
+      let color = `hsl(${hue}, ${saturation}, ${lightness})`
+      if (i < 4) {
+        palette[0].push(color)
+      } else {
+        palette[1].push(color)
+      }
     }
     return palette
   }
 
-  function downloadCanvas() {
+  function createDownload() {
+    let downloadButton = document.getElementById('dl-canvas')
 
+    downloadButton.href = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream')
   }
 }
