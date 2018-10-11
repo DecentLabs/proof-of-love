@@ -7,9 +7,6 @@ export const createHeart = (hash, canvas, palette) => {
   const positions = makeHeart(code)
   drawHeart(positions)
 
-  createDownload()
-
-
   function getPositions() {
     const ascii = '00001111000011110000000111111001111110000011111111111111110001111111111111111110011111111111111111101111111111111111111111111111111111111111111111111111111111110111111111111111111001111111111111111110001111111111111111000011111111111111110000011111111111111000000011111111111100000000011111111110000000000011111111000000000000011111100000000000000011110000000000000000011000000000'
 
@@ -61,15 +58,6 @@ export const createHeart = (hash, canvas, palette) => {
         pixel.y * size,
         size, size
       )
-    }
-  }
-
-
-  function createDownload() {
-    let downloadButton = document.getElementById('dl-canvas')
-
-    if (downloadButton !== null) {
-      downloadButton.href = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream')
     }
   }
 }

@@ -13,7 +13,7 @@ const confirmed = (state) => html`
 <br><span class="tx">${state.transactionID}</span><br>encoded into your uniqe heart</p>
 </div>
 <div class="row">
-<a href="" class="w-button" id="dl-canvas" download="${state.names && state.names[0]}_heart_${state.names && state.names[1]}.png">${!state.pending && 'Download your unique heart'}</a>
+<a href="${state.imageURL || ''}" class="w-button" id="dl-canvas" download="${state.names && state.names[0]}_heart_${state.names && state.names[1]}.png">${!state.pending && 'Download your unique heart'}</a>
 <button class="w-button" onclick="window.print();return false;">Print</button>
 </div>
 <div class="print-wrapper">
