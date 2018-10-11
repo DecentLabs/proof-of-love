@@ -120,10 +120,21 @@ canvas {
     margin: 0 60px;
 }
 
+svg {
+    display: none;
+}
+
 @media print {
-    .w-button {
-        display: none !important;
+    svg {
+        width: 100%;
+        display: block;
     }
+
+    header,
+    .row {
+        display: none;
+    }
+
 }
 
 @keyframes beat {

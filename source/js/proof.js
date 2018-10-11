@@ -1,5 +1,5 @@
 import { renderMain } from './partials.js'
-import { createHeart, getColorPalette } from './heart.js'
+import { createHeart, getColorPalette, toDataURL } from './heart.js'
 import {
   onStateChange,
   update
@@ -49,5 +49,7 @@ onStateChange(({updatedKeys}) => {
     canvas = document.getElementById('heart-canvas')
     palette = getColorPalette()
     createHeart(tx_hash, canvas, palette)
+
+    update({imageURL: toDataURL(canvas)})
   }
 })

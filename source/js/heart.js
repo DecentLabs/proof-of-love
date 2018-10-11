@@ -89,3 +89,7 @@ export function getColorPalette(bw=false) {
   }
   return palette
 }
+
+export function toDataURL(canvas) {
+  return canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream')
+}
