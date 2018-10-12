@@ -62,7 +62,6 @@ export const ABI = [
    }
 ]
 
-export const ADDRESS = ''
+export const ADDRESS = '0x2492644798cb3b5162159a6e7d261fe74435eeea'
 export const TESTADDRESS = '0x5C43a1e3D4e48De3D568Dcf2995d61f58330E4C2'
-//'0x00CF09F905b0485e1a6b7845693DBd63c6922986'
 
