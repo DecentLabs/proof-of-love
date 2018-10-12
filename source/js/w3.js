@@ -39,7 +39,7 @@ export function getLovers (tx_hash) {
   return names.then(({rcpt, names}) => new Promise(resolve => {
     web3js.eth.getBlock(rcpt.blockNumber, function (error, block) {
       let timestamp = (new Date()).toISOString()
-      if (error !== null) {
+      if (error !== null || !block || !block.timestamp) {
         console.log('Error:' + error)
       } else {
         timestamp = new Date(block.timestamp * 1000).toISOString()
@@ -69,7 +69,7 @@ export function startPollingForConfirmation (tx_hash, maxConfirmation) {
           update({pending: false, hasError: true, loading: false, error})
           reject(error)
         } else {
-          if (response.blockNumber === null) {
+          if (!response || response.blockNumber === null) {
             update({pending: true, loading: false})
             resolve()
           } else {
@@ -110,18 +110,8 @@ export function getNetwork () {
 
 export function getNetworkUrl (id) {
   switch (id) {
-    case '1':
-      return 'https://mainnet.infura.io/'
-      break
-    case '3':
-      return 'https://ropsten.infura.io/'
-      break
     case '4':
       return 'https://rinkeby.infura.io/'
-      break
-    case '42':
-      return 'https://kovan.infura.io/'
-      break
     default:
       return 'https://mainnet.infura.io/'
   }
