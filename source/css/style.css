@@ -30,8 +30,9 @@ body {
     font-weight: bold;
     font-size: 120px;
     text-transform: uppercase;
-    line-height:0.8em;
+    line-height:0.74em;
     color: var(--pink);
+    letter-spacing: -5px;
 }
 
 .front p.description {
@@ -43,6 +44,7 @@ body {
     color: var(--dark-gray);
     padding:0.5em;
     margin-top: 0.5em;
+    letter-spacing: normal;
 }
 
 .front button {
