@@ -123,6 +123,6 @@ export function getNetworkUrl (id) {
       return 'https://kovan.infura.io/'
       break
     default:
-      return 'https://infura.io/'
+      return 'https://mainnet.infura.io/'
   }
 }
