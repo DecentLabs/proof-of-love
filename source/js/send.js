@@ -1,7 +1,16 @@
 import { getWeb3, prove, getNetwork } from './w3.js'
 import { createHeart, getColorPalette } from './heart.js'
 
-window.addEventListener('load', function () {
+document.addEventListener('click', (e) => {
+  const button = document.getElementById('flip-button')
+  if (e.target === button) {
+    const card = document.getElementById('card')
+
+    card.classList.add('flip')
+  }
+})
+
+window.addEventListener('load', () => {
   const loveForm = document.getElementById('love-form')
   const name1Element = document.getElementById('name1')
   const name2Element = document.getElementById('name2')

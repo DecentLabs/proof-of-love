@@ -1,3 +1,10 @@
+:root {
+    --black: #010212;
+    --pink: #e91f5d;
+    --white: rgb(251, 251, 251);
+    --font: 'IBM Plex Mono', monospace;
+}
+
 body {
     display: grid;
     width: 100%;
@@ -6,8 +13,9 @@ body {
     grid-template-rows: 15px 70px auto 15px;
     padding: 0;
     margin: 0;
-    font-family: 'IBM Plex Mono', sans-serif;
-    background: rgb(251, 251, 251)
+    font-family: var(--font);
+    color: var(--black);
+    background: var(--white);
 }
 
 header {
@@ -19,7 +27,7 @@ header {
 }
 
 header a {
-    color: #000000;
+    color: var(--black);
     text-decoration: inherit;
 }
 
@@ -40,6 +48,47 @@ img {
 p {
     font-size: 18px;
     text-align: center;
+}
+
+#card-wrapper {
+    width: 100%;
+    height: 100%;
+    perspective: 1000px;
+}
+
+#card {
+    position: relative;
+    width: 680px;
+    height: 460px;
+    transition: 0.6s;
+    transform-style: preserve-3d;
+}
+
+#card.flip {
+    transform: rotateY(180deg);
+}
+
+#card .front,
+#card .back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    border: 1px solid var(--black);
+    backface-visibility: hidden;
+}
+
+#card .front {
+    z-index: 2;
+}
+#card .back {
+    transform: rotateY(180deg)
+}
+
+#card .front h1 {
+    font-size: 66px;
 }
 
 form {
@@ -81,7 +130,7 @@ form {
     color: white;
     border: 0;
     border-radius: 3px;
-    background: #e91f5d;
+    background: var(--pink);
     text-decoration: none;
     cursor: pointer;
 }
@@ -148,7 +197,7 @@ canvas {
     }
 
     svg text {
-        font-family: 'IBM Plex Mono', monospace;
+        font-family: var(--font);
     }
 
     .row {
