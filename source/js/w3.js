@@ -31,17 +31,20 @@ export function getLovers (tx_hash) {
       if (events.length) {
         names = events[0].events.map(eventData => eventData.value)
       }
-      update({names})
-      resolve(rcpt)
+      resolve({rcpt, names})
     })
   })
 
-  return names.then((rcpt) => new Promise(resolve => {
+  return names.then(({rcpt, names}) => new Promise(resolve => {
     web3js.eth.getBlock(rcpt.blockNumber, function (error, block) {
+      let timestamp = (new Date()).toISOString()
       if (error !== null) {
         console.log('Error:' + error)
+      } else {
+        timestamp = new Date(block.timestamp * 1000).toISOString()
       }
-      update({timestamp: new Date(block.timestamp * 1000).toISOString()})
+
+      update({names, timestamp})
       resolve()
     })
   }))
@@ -104,7 +107,7 @@ export function getNetwork () {
 export function getNetworkUrl (id) {
   switch (id) {
     case '1':
-      return 'https://infura.io/'
+      return 'https://mainnet.infura.io/'
       break
     case '3':
       return 'https://ropsten.infura.io/'
