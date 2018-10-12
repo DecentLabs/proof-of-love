@@ -39,7 +39,7 @@ onStateChange(({state, oldState}) => {
 })
 
 onStateChange(({state, updatedKeys}) => {
-  if (updatedKeys.has('timestamp') || updatedKeys.has('names')) {
+  if (updatedKeys.has('timestamp') || updatedKeys.has('names') || updatedKeys.has('imageURL')) {
     renderMain(state, mainElement)
   }
 })
