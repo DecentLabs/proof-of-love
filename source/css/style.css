@@ -1,13 +1,60 @@
+:root {
+    --black: #010212;
+    --font: 'IBM Plex Mono', monospace;
+    --light-gray: rgb(251, 251, 251);
+    --dark-gray: rgb(60, 63, 66);
+    --pink: #e91f5d;
+}
+
 body {
     display: grid;
     width: 100%;
     min-height: 100vh;
     grid-template-columns: 15px auto 15px;
-    grid-template-rows: 15px 70px auto 15px;
+    grid-template-rows: 15px 45px auto 15px;
     padding: 0;
     margin: 0;
-    font-family: 'IBM Plex Mono', sans-serif;
-    background: rgb(251, 251, 251)
+    font-family: var(--font);
+    color: var(--black);
+    background: var(--light-gray);
+}
+
+.front {
+    border: 1px solid var(--dark-gray);
+    background: var(--dark-gray);
+}
+
+.front p {
+    margin:0;
+    text-align: left;
+    font-weight: bold;
+    font-size: 120px;
+    text-transform: uppercase;
+    line-height:0.74em;
+    color: var(--pink);
+    letter-spacing: -5px;
+}
+
+.front p.description {
+    font-size: 16px;
+    text-transform: none;
+    font-weight: normal;
+    line-height:1.25em;
+    background: var(--light-gray);
+    color: var(--dark-gray);
+    padding:0.5em;
+    margin-top: 0.5em;
+    letter-spacing: normal;
+}
+
+.front button {
+    position:absolute;
+    bottom:-23px;
+    right:0;
+}
+
+.backside {
+    display:none;
 }
 
 header {
@@ -19,7 +66,7 @@ header {
 }
 
 header a {
-    color: #000000;
+    color: var(--black);
     text-decoration: inherit;
 }
 
@@ -42,14 +89,54 @@ p {
     text-align: center;
 }
 
+#card-wrapper {
+    width: 100%;
+    height: 100%;
+    perspective: 1000px;
+}
+
+#card {
+    position: relative;
+    width: 680px;
+    height: 350px;
+    transition: 0.6s;
+    transform-style: preserve-3d;
+}
+
+#card.flip {
+    transform: rotateY(180deg);
+}
+
+#card .front,
+#card .back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 1px solid var(--dark-gray);
+    backface-visibility: hidden;
+    box-sizing: border-box;
+}
+
+#card .front {
+    z-index: 2;
+}
+#card .back {
+    transform: rotateY(180deg);
+    padding: 40px 20px 20px;
+}
+
+#card .front h1 {
+    font-size: 66px;
+}
+
 form {
     width: 100%;
     max-width: 400px;
-    padding: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: #194959;
 }
 
 .form-row {
@@ -59,7 +146,6 @@ form {
     align-items: center;
     width: 100%;
     padding: 10px 0;
-    margin-bottom: 20px;
 }
 
 .form-row.centered {
@@ -81,7 +167,7 @@ form {
     color: white;
     border: 0;
     border-radius: 3px;
-    background: #e91f5d;
+    background: var(--pink);
     text-decoration: none;
     cursor: pointer;
 }
@@ -148,7 +234,7 @@ canvas {
     }
 
     svg text {
-        font-family: 'IBM Plex Mono', monospace;
+        font-family: var(--font);
     }
 
     .row {

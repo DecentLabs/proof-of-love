@@ -1,17 +1,27 @@
 <main class="home-page">
-  <div>
-    <canvas id="home-canvas"></canvas>
+  <div id="card-wrapper" class="column">
+    <div id="card">
+      <div class="front">
+        <p>Proof</p>
+        <p>of</p>
+        <p>Love</p>
+        <p class="description">Carve a love message into Ethereum Blockchain.<br>For cryptographical and economic reasons, <br>your message stays <b>forever</b>.</p>
+        <button id="flip-button" class="w-button">Try it</button>
+      </div>
+      <div class="back column">
+        <canvas id="home-canvas"></canvas>
+        <form id="love-form">
+          <div class="form-row">
+            <input placeholder="name1" class="w-input" id="name1" minlength="1" maxlength="50">
+            <span>loves</span>
+            <input placeholder="name2" class="w-input" id="name2" minlength="1" maxlength="50">
+          </div>
+          <div class="form-row centered">
+            <button class="w-button" id="send" type="submit">Prove Love</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
-  <form id="love-form">
-    <div class="form-row">
-      <input placeholder="name1" class="w-input" id="name1">
-      <span>loves</span>
-      <input placeholder="name2" class="w-input" id="name2">
-    </div>
-    <div class="form-row centered">
-      <button class="w-button" id="send" type="submit">Prove Love</button>
-    </div>
-  </form>
-  <p>Carve a love message to the Ethereum Blockchain.<br>For cryptographical and economical reasons, your message stays forever.</p>
 </main>
 <script src="js/send.js" type="module"></script>
