@@ -2,7 +2,7 @@
     --black: #010212;
     --font: 'IBM Plex Mono', monospace;
     --light-gray: rgb(251, 251, 251);
-    --dark-gray: rgb(96, 96, 96);
+    --dark-gray: rgb(60, 63, 66);
     --pink: #e91f5d;
 }
 
@@ -11,7 +11,7 @@ body {
     width: 100%;
     min-height: 100vh;
     grid-template-columns: 15px auto 15px;
-    grid-template-rows: 15px 70px auto 15px;
+    grid-template-rows: 15px 45px auto 15px;
     padding: 0;
     margin: 0;
     font-family: var(--font);
@@ -96,7 +96,7 @@ p {
 #card {
     position: relative;
     width: 680px;
-    height: 374px;
+    height: 350px;
     transition: 0.6s;
     transform-style: preserve-3d;
 }
@@ -122,7 +122,7 @@ p {
 }
 #card .back {
     transform: rotateY(180deg);
-    padding: 20px;
+    padding: 40px 20px 20px;
 }
 
 #card .front h1 {
