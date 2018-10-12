@@ -1,14 +1,15 @@
 import abiDecode from './abidecode.js'
-import { ABI, ADDRESS } from './contract.js'
+import { ABI, ADDRESS, TESTADDRESS } from './contract.js'
 import { update, onStateChange } from './state.js'
 
 abiDecode.addABI(ABI)
 let web3js = null
 let CONTRACT = null
+let NETWORKID = null
 
 function getContract () {
   if (!CONTRACT) {
-    CONTRACT = web3js.eth.contract(ABI).at(ADDRESS)
+    CONTRACT = getNetwork().then(netId => web3js.eth.contract(ABI).at(netId === '1' ? ADDRESS : TESTADDRESS))
   }
 
   return CONTRACT
@@ -51,11 +52,11 @@ export function getLovers (tx_hash) {
 }
 
 export function prove (name1, name2) {
-  return new Promise(resolve => {
-    getContract().prove(name1, name2, (error, result) => {
+  return getContract().then(contract => new Promise(resolve => {
+    contract.prove(name1, name2, (error, result) => {
       resolve(result)
     })
-  })
+  }))
 }
 
 export function startPollingForConfirmation (tx_hash, maxConfirmation) {
@@ -99,9 +100,12 @@ export function startPollingForConfirmation (tx_hash, maxConfirmation) {
 }
 
 export function getNetwork () {
-  return new Promise(resolve => {
-    web3.version.getNetwork((err, netId) => resolve(netId))
-  })
+  if(!NETWORKID) {
+    NETWORKID = new Promise(resolve => {
+      web3js.version.getNetwork((err, netId) => resolve(netId))
+    })
+  }
+  return NETWORKID
 }
 
 export function getNetworkUrl (id) {
