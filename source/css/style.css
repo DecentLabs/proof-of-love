@@ -159,6 +159,10 @@ form {
     font-size: 18px;
 }
 
+.w-input:first-child {
+    text-align: right;
+}
+
 .w-button {
     padding: 10px;
     margin: 0 10px;
