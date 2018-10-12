@@ -37,7 +37,9 @@ window.addEventListener('load', () => {
           getNetwork()
         ]).then(
           ([hash, network]) => {
-            window.location.href = `/proof.html?${hash}${ network !== '1' ? '@' + network : ''}`
+            if (hash !== undefined) {
+              window.location.href = `/proof.html?${hash}${ network !== '1' ? '@' + network : ''}`
+            }
           })
       }
     })
