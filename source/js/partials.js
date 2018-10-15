@@ -12,7 +12,7 @@ const confirmed = (state) => html`
 <p>Carved forever in the Blockchain since ${state.timestamp || 'now'} Transaction id:
 <br><span class="tx">${state.transactionID}</span><br>encoded into your unique heart</p>
 </div>
-<div class="row">
+<div class="row button-row">
 <a href="${state.imageURL || ''}" class="button" id="dl-canvas" download="${state.names && state.names[0]}_heart_${state.names && state.names[1]}.png">${!state.pending && 'Download your unique heart'}</a>
 <button class="button" onclick="window.print();return false;">Print</button>
 </div>

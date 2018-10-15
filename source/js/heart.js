@@ -1,8 +1,8 @@
 export const createHeart = (hash, canvas, palette) => {
   const code = hash.slice(2)
   const ctx = canvas.getContext('2d')
-  canvas.width = 160
-  canvas.height = 160
+  canvas.width = window.innerWidth < 480 ? 80 : 160
+  canvas.height = window.innerWidth < 480 ? 80 : 160
 
   const positions = makeHeart(code)
   drawHeart(positions)
