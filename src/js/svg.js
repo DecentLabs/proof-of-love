@@ -1,4 +1,4 @@
-import {html} from 'https://unpkg.com/lit-html?module';
+import {html} from 'lit-html';
 
 export const getSvg = (imageUrl, names, hash) => {
   if (!imageUrl || !names || !names.length || !hash) {

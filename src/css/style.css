@@ -123,6 +123,19 @@ p {
     text-align: center;
 }
 
+#card .help {
+    display:none;
+    text-align:left;
+}
+
+#card.no-metamask form {
+    display:none;
+}
+
+#card.no-metamask .help {
+    display:block;
+}
+
 form {
     width: 100%;
     max-width: 400px;

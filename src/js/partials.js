@@ -1,5 +1,6 @@
-import {html, render} from 'https://unpkg.com/lit-html?module';
+import {html, render} from 'lit-html';
 import {getSvg} from './svg.js'
+import origamiUrl from '../assets/origami.png'
 
 
 const confirmed = (state) => html`
@@ -18,7 +19,7 @@ const confirmed = (state) => html`
 </div>
 <div class="print-wrapper">
 ${getSvg(state.imageURL, state.names, state.transactionID)}
-<img src="assets/origami.png">
+<img src="${origamiUrl}">
 </div>
 `
 

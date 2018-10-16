@@ -1,10 +1,11 @@
 import { getWeb3, prove, getNetwork } from './w3.js'
 import { createHeart, getColorPalette } from './heart.js'
 
+const card = document.getElementById('card')
+
 document.addEventListener('click', (e) => {
   const button = document.getElementById('flip-button')
   if (e.target === button) {
-    const card = document.getElementById('card')
 
     card.classList.add('flip')
   }
@@ -19,7 +20,6 @@ window.addEventListener('load', () => {
   const palette = getColorPalette(true)
 
   createHeart(hash, homeCanvas, palette)
-
 
   // Checking if Web3 has been injected by the browser (Mist/MetaMask)
   if (typeof web3 !== 'undefined') {
@@ -45,6 +45,6 @@ window.addEventListener('load', () => {
     })
   } else {
     console.log('No web3? You should consider trying MetaMask!')
-    window.location.href = '/no-metamask.html'
+    card.classList.add('no-metamask')
   }
 })
