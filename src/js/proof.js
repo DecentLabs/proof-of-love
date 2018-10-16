@@ -14,7 +14,7 @@ import {
 const [tx_hash, network] =  decodeURIComponent(window.location.search.slice(1).split('&')[0]).split('@')
 const mainElement = document.getElementById('proofmain')
 
-let canvas = document.getElementById('load-canvas')
+let loadCanvas = document.getElementById('load-canvas')
 let palette = getColorPalette(true)
 
 update({
@@ -26,7 +26,7 @@ update({
   names: []
 })
 
-createHeart(tx_hash, canvas, palette)
+createHeart(tx_hash, loadCanvas, palette)
 
 getWeb3FromURL(getNetworkUrl(network))
 
@@ -38,12 +38,12 @@ onStateChange(({state, oldState}) => {
   }
 })
 
-onStateChange(({state, updatedKeys}) => {
+onStateChange(({state}) => {
   renderMain(state, mainElement)
 }, ['timestamp', 'names', 'imageURL'])
 
-onStateChange(({updatedKeys}) => {
-  canvas = document.getElementById('heart-canvas')
+onStateChange(() => {
+  const canvas = document.createElement('canvas');
   palette = getColorPalette()
   createHeart(tx_hash, canvas, palette)
 
