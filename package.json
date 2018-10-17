@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "parcel src/index.html src/proof.html",
-    "build": "parcel build src/index.html src/proof.html",
+    "start": "parcel src/index.html src/proof.html src/privacy.html",
+    "build": "parcel build src/index.html src/proof.html src/privacy.html",
     "clean": "rm -rvf dist .cache"
   },
   "dependencies": {
