@@ -1,28 +1,47 @@
-import {html, render} from 'lit-html';
-import {getSvg} from './svg.js'
+import { html, render } from 'lit-html'
+import { getSvg } from './svg.js'
 import origamiUrl from '../assets/origami.png'
+import { fbButton } from './fb.js'
 
-const main = (state) => (state.names.length && state.imageURL) ? html`
+const heartAndNames = ({names, imageURL}) => (names.length && imageURL) ? html`
 <div class="row">
-<h2>${state.names && state.names[0]}</h2>
-<img src="${state.imageURL}">
-<h2>${state.names && state.names[1]}</h2>
+<h2>${names[0]}</h2>
+<img src="${imageURL}">
+<h2>${names[1]}</h2>
 </div>
+` : ''
+
+const timestampText = (timestamp) => (timestamp) ? html `Carved forever in the Blockchain since ${timestamp}` : ''
+
+const timestampAndId = ({timestamp, transactionID}) => (transactionID) ? html`
 <div class="row">
-<p>Carved forever in the Blockchain since ${state.timestamp || 'now'} Transaction id:
-<br><span class="tx">${state.transactionID}</span><br>encoded into your unique heart</p>
+<p>${timestampText(timestamp)} Transaction id:
+<br><span class="tx">${transactionID}</span><br>encoded into your unique heart</p>
 </div>
+` : ''
+
+const buttonRow = ({imageURL, names}) => (names.length && imageURL) ? html`
 <div class="row button-row">
-<a href="${state.imageURL || ''}" class="button" id="dl-canvas" download="${state.names && state.names[0]}_heart_${state.names && state.names[1]}.png">Download your unique heart</a>
+<a href="${imageURL}" class="button" id="dl-canvas" download="${names[0]}_heart_${names[1]}.png">Download your unique heart</a>
 <button class="button" onclick="window.print();return false;">Print</button>
-<button class="button" id="share">Share it on Facebook</button>
+${fbButton()}
 </div>
+` : ''
+
+const printWrapper = ({imageURL, names, transactionID}) => (names.length && imageURL && transactionID) ? html`
 <div class="print-wrapper">
-${getSvg(state.imageURL, state.names, state.transactionID)}
+${getSvg(imageURL, names, transactionID)}
 <img src="${origamiUrl}">
 </div>
 ` : ''
 
-export function renderMain(state, element) {
+const main = (state) => html`
+${heartAndNames(state)}
+${timestampAndId(state)}
+${buttonRow(state)}
+${printWrapper(state)}
+`
+
+export function renderMain (state, element) {
   render(main(state), element)
 }

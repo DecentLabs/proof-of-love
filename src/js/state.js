@@ -1,4 +1,12 @@
-let STATE = {}
+let STATE = {
+  pending: true,
+  confirmed: 0,
+  error: '',
+  fbInit: false,
+  names: [],
+  receipt: false,
+  transactionID: false
+}
 
 let onStateChangeMethods = []
 
