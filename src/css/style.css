@@ -175,6 +175,7 @@ input:first-child {
     background: var(--pink);
     text-decoration: none;
     cursor: pointer;
+    text-align: center;
 }
 
 .proof-page p {
