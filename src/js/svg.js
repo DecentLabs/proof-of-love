@@ -1,13 +1,11 @@
 import {html} from 'lit-html';
 
-export const getSvg = (imageUrl, names, hash) => {
-  if (!imageUrl || !names || !names.length || !hash) {
+export const getSvg = (imageUrl, names) => {
+  if (!imageUrl || !names || !names.length) {
     return html``
   }
 
   const [name1, name2] = names
-  const hash1 = hash.slice(2, 34)
-  const hash2 = hash.slice(34, 66)
 
   return html`
 <svg version="1.1" id="Layer_1" 
@@ -18,8 +16,14 @@ export const getSvg = (imageUrl, names, hash) => {
 		<image overflow="visible" width="160" height="160" href="${imageUrl}" transform="matrix(0.8375 0 0 0.8375 233 69)"></image>
 		<text transform="matrix(1 0 0 1 159.457 210.3564)" font-size="16px">${name1}</text>
 		<text transform="matrix(1 0 0 1 387.5127 210.3564)" font-size="16px">${name2}</text>
-		<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 147.1523 360.1992)" font-size="7px">${hash1}</text>
-		<text transform="matrix(6.123234e-17 1 -1 6.123234e-17 452.8472 225.8011)" font-size="7px">${hash2}</text>
+    <text transform="matrix(6.123234e-17 -1 1 6.123234e-17 91.0312 352.4873)" font-size="14px">Blockchain data</text>
+    <text transform="matrix(-5.551115e-17 1 -1 -5.551115e-17 508.9863 225.8616)" font-size="14px">stays forever</text>
+    <text transform="matrix(-1 0 0 -1 389.4863 410.957)" font-size="11px">https://proofoflove.digital</text>
+    <text transform="matrix(6.123234e-17 -1 1 6.123234e-17 122.418 319.1738)" font-size="9px">So does this love</text>
+    <text transform="matrix(6.123234e-17 1 -1 6.123234e-17 478.2148 227.8262)" font-size="9px">letter remain eternal</text>
+    <text transform="matrix(6.123234e-17 -1 1 6.123234e-17 149.3677 265.6323)" font-size="9px">See the</text>
+    <text transform="matrix(6.123234e-17 1 -1 6.123234e-17 451.2344 228.2332)" font-size="9px">message...</text>
+    <image style="overflow:visible;" width="320" height="320" xlink:href=""  transform="matrix(0.2812 0 0 0.2812 255 300)"></image>
 	</g>
 </svg>
 `
