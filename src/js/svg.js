@@ -1,7 +1,7 @@
 import {html} from 'lit-html';
 
-export const getSvg = (imageUrl, names) => {
-  if (!imageUrl || !names || !names.length) {
+export const getSvg = (imageUrl, names, qrCode) => {
+  if (!imageUrl || !names || !names.length || !qrCode) {
     return html``
   }
 
@@ -23,7 +23,7 @@ export const getSvg = (imageUrl, names) => {
     <text transform="matrix(6.123234e-17 1 -1 6.123234e-17 478.2148 227.8262)" font-size="9px">letter remain eternal</text>
     <text transform="matrix(6.123234e-17 -1 1 6.123234e-17 149.3677 265.6323)" font-size="9px">See the</text>
     <text transform="matrix(6.123234e-17 1 -1 6.123234e-17 451.2344 228.2332)" font-size="9px">message...</text>
-    <image style="overflow:visible;" width="320" height="320" xlink:href=""  transform="matrix(0.2812 0 0 0.2812 255 300)"></image>
+    <image style="overflow:visible;" width="320" height="320" href="${qrCode}"  transform="matrix(0.2812 0 0 0.2812 255 300)"></image>
 	</g>
 </svg>
 `

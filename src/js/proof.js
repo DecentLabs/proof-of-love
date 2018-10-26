@@ -1,8 +1,9 @@
+import QRCode from 'qrcode'
 import { renderMain } from './partials.js'
 import { createHeart, getColorPalette, toDataURL } from './heart.js'
 import {
   onStateChange,
-  update
+  update,
 } from './state.js'
 import {
   getWeb3FromURL,
@@ -35,9 +36,19 @@ function makeColorHeart () {
   update({imageURL: toDataURL(canvas)})
 }
 
+function makeQRCode() {
+  QRCode.toDataURL(window.location.href, { errorCorrectionLevel: 'H' }).then((url) => {
+    update({qrCode: url})
+  }).catch(err => {
+    console.error(err)
+  })
+}
+
 makeMonoHeart()
 
 makeColorHeart()
+
+makeQRCode()
 
 getWeb3FromURL(getNetworkUrl(network))
 

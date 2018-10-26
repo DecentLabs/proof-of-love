@@ -28,9 +28,9 @@ ${fbButton()}
 </div>
 ` : ''
 
-const printWrapper = ({imageURL, names, transactionID}) => (names.length && imageURL && transactionID) ? html`
+const printWrapper = ({imageURL, names, qrCode}) => (names.length && imageURL && qrCode) ? html`
 <div class="print-wrapper">
-${getSvg(imageURL, names, transactionID)}
+${getSvg(imageURL, names, qrCode)}
 <img src="${origamiUrl}">
 </div>
 ` : ''
