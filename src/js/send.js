@@ -21,30 +21,36 @@ window.addEventListener('load', () => {
 
   createHeart(hash, homeCanvas, palette)
 
-  // Checking if Web3 has been injected by the browser (Mist/MetaMask)
-  if (typeof web3 !== 'undefined') {
+  let ready = null
+
+  if (window.ethereum) {
+    getWeb3(ethereum)
+    ready = ethereum.enable()
+  } else if (window.web3) {
     // Use Mist/MetaMask's provider
-    const web3js = getWeb3(web3.currentProvider)
-
-    loveForm.addEventListener('submit', function (event) {
-      event.preventDefault()
-
-      const name1 = name1Element.value
-      const name2 = name2Element.value
-      if (name1 && name2 && name1.trim().length && name2.trim().length) {
-        Promise.all([
-          prove(name1, name2),
-          getNetwork()
-        ]).then(
-          ([hash, network]) => {
-            if (hash !== undefined) {
-              window.location.href = `/proof.html?${hash}${ network !== '1' ? '@' + network : ''}`
-            }
-          })
-      }
-    })
+    getWeb3(web3.currentProvider)
+    ready = Promise.resolve()
   } else {
+    ready = Promise.reject()
     console.log('No web3? You should consider trying MetaMask!')
     card.classList.add('no-metamask')
   }
+
+  ready.then(() => loveForm.addEventListener('submit', function (event) {
+    event.preventDefault()
+
+    const name1 = name1Element.value
+    const name2 = name2Element.value
+    if (name1 && name2 && name1.trim().length && name2.trim().length) {
+      Promise.all([
+        prove(name1, name2),
+        getNetwork()
+      ]).then(
+        ([hash, network]) => {
+          if (hash !== undefined) {
+            window.location.href = `/proof.html?${hash}${ network !== '1' ? '@' + network : ''}`
+          }
+        })
+    }
+  }))
 })
