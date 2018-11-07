@@ -132,12 +132,17 @@ p {
     text-align:left;
 }
 
-#card.no-metamask form {
-    display:none;
+#card.no-metamask form,
+#card.no-login form {
+    display: none;
 }
 
 #card.no-metamask .help {
-    display:block;
+    display: block;
+}
+
+#card.no-login #error-msg {
+    display: flex;
 }
 
 form {
@@ -166,6 +171,15 @@ input {
 
 input:first-child {
     text-align: right;
+}
+
+#error-msg {
+    display: none;
+}
+
+#error-msg p {
+    font-size: 14px;
+    line-height: 2;
 }
 
 .button {
