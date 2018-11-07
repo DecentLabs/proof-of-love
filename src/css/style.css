@@ -36,6 +36,10 @@ main {
     align-items: center;
 }
 
+.button-row {
+    margin-bottom: 20px;
+}
+
 .column {
     display: flex;
     flex-direction: column;
@@ -178,6 +182,11 @@ input:first-child {
     text-align: center;
 }
 
+.button.small {
+    padding: 7px 12px;
+    font-size: 17px;
+}
+
 .proof-page p {
     width: 100%;
     font-size: 14px;
@@ -240,11 +249,16 @@ canvas {
 
     .button-row {
         flex-direction: column;
+        margin: 0;
     }
 
     .button {
-        font-size: 16px;
+        font-size: 18px;
         margin: 0 0 10px;
+    }
+
+    .button.small {
+        font-size: 15px;
     }
 
     form input,

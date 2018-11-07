@@ -20,18 +20,20 @@ const timestampAndId = ({timestamp, transactionID}) => (transactionID) ? html`
 </div>
 ` : ''
 
-const buttonRow = ({imageURL, names}) => (names.length && imageURL) ? html`
-<div class="row button-row">
-<a href="${imageURL}" class="button" id="dl-canvas" download="${names[0]}_heart_${names[1]}.png">Download your unique heart</a>
-<button class="button" onclick="window.print();return false;">Print</button>
-${fbButton()}
-</div>
-` : ''
-
 const printWrapper = ({imageURL, names, qrCode}) => (names.length && imageURL && qrCode) ? html`
 <div class="print-wrapper">
 ${getSvg(imageURL, names, qrCode)}
 <img src="${origamiUrl}">
+</div>
+` : ''
+
+const buttonRow = ({imageURL, names}) => (names.length && imageURL) ? html`
+<div class="row button-row">
+<a href="${imageURL}" class="button small" id="dl-canvas" download="${names[0]}_heart_${names[1]}.png">Download your unique heart</a>
+${fbButton()}
+</div>
+<div class="row button-row">
+<button class="button" onclick="window.print();return false;">Print origami heart</button>
 </div>
 ` : ''
 

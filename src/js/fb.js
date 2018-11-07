@@ -28,6 +28,6 @@ const fbShare = (names) => {
 export const fbButton = () => {
   const {names, fbInit} = getState()
   return (names.length && fbInit) ? html`
-    <button class="button" id="share" @click="${() => fbShare(names)}">Share it on Facebook</button>
+    <button class="button small" id="share" @click="${() => fbShare(names)}">Share it on Facebook</button>
   ` : ''
 }
