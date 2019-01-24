@@ -16,6 +16,9 @@ body {
     background: var(--light-gray);
 }
 
+a, a:visited, a:active {
+    color: var(--pink);
+}
 
 main {
     display: flex;
@@ -233,6 +236,46 @@ canvas {
     display: none;
 }
 
+footer {
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    display:flex;
+    flex-direction: row;
+    font-size: 0.75em;
+    background: var(--dark-gray);
+    color: var(--light-gray);
+    justify-content: space-between;
+    align-items: center;
+}
+
+footer > div {
+    padding: 0.2em 0.5em;
+}
+
+footer > div.created {
+    flex:1;
+}
+
+footer > div.created a {
+}
+
+footer > div.created img {
+    margin:0;
+    object-fit: contain;
+    max-height:5em;
+}
+
+footer > div.help {
+    text-align:center;
+    height: 5em;
+}
+
+footer > div.links {
+    text-align:right;
+}
+
 @media (max-width: 680px) {
     body {
         height: auto;
@@ -290,6 +333,10 @@ canvas {
         line-height: 1.6em;
     }
 
+    footer {
+        flex-direction: column;
+    }
+
 }
 
 @media print {
@@ -316,7 +363,9 @@ canvas {
     .row {
         display: none;
     }
-
+    .print {
+        display: none;
+    }
 }
 
 @keyframes beat {
@@ -325,8 +374,3 @@ canvas {
     }
 }
 
-.privacy {
-    position:fixed;
-    bottom:0;
-    right:0;
-}
