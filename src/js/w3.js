@@ -26,7 +26,13 @@ export function getWeb3FromURL (url) {
 
 export function prove (name1, name2) {
   return getContract().then(contract => new Promise(resolve => {
+    gtag('event','start',{
+      event_category:'prove'
+    })
     contract.prove(name1, name2, (error, result) => {
+      gtag('event','end',{
+        event_category:'prove'
+      })
       resolve(result)
     })
   }))
@@ -80,7 +86,18 @@ function getConfirmation (tx_hash, maxConfirmation) {
 
   const {confirmed} = getState()
 
+  if(confirmed === 1) {
+    gtag('event','first confirmation',{
+      event_category:'prove'
+    })
+  }
+
   if (confirmed >= maxConfirmation) {
+    gtag('event','confirmed',{
+      event_category:'prove',
+      event_value: confirmed
+    })
+
     return Promise.resolve(false)
   }
 

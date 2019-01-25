@@ -12,6 +12,9 @@ window.fbAsyncInit = function () {
 }
 
 const fbShare = (names) => {
+  gtag('event','share',{
+    event_category:'proof'
+  })
   FB.ui({
     method: 'share_open_graph',
     action_type: 'og.likes',

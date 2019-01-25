@@ -27,23 +27,23 @@ ${getSvg(imageURL, names, qrCode)}
 </div>
 ` : ''
 
-const buttonRow = ({imageURL, names}) => (names.length && imageURL) ? html`
+const buttonRow = ({imageURL, names},{printHandler, downloadHandler}) => (names.length && imageURL) ? html`
 <div class="row button-row">
-<a href="${imageURL}" class="button small" id="dl-canvas" download="${names[0]}_heart_${names[1]}.png">Download your unique heart</a>
+<a href="${imageURL}" @click="${downloadHandler}" class="button small" id="dl-canvas" download="${names[0]}_heart_${names[1]}.png">Download your unique heart</a>
 ${fbButton()}
 </div>
 <div class="row button-row">
-<button class="button" onclick="window.print();return false;">Print origami heart</button>
+<button class="button" @click="${printHandler}">Print origami heart</button>
 </div>
 ` : ''
 
-const main = (state) => html`
+const main = (state, eventHandlers) => html`
 ${heartAndNames(state)}
 ${timestampAndId(state)}
-${buttonRow(state)}
+${buttonRow(state, eventHandlers)}
 ${printWrapper(state)}
 `
 
-export function renderMain (state, element) {
-  render(main(state), element)
+export function renderMain (state, element, eventHandlers) {
+  render(main(state, eventHandlers), element)
 }

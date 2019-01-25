@@ -53,7 +53,21 @@ makeQRCode()
 getWeb3FromURL(getNetworkUrl(network))
 
 onStateChange(({state}) => {
-  renderMain(state, mainElement)
+  renderMain(state, mainElement, {
+    printHandler: (e) => {
+      e.preventDefault()
+      gtag('event','print',{
+        event_category:'proof'
+      })
+      window.print()
+      return false
+    },
+    downloadHandler: (e) => {
+      gtag('event','download',{
+        event_category:'proof'
+      })
+    }
+  })
 }, ['timestamp', 'names', 'imageURL'])
 
 
