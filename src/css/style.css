@@ -78,12 +78,15 @@ main {
     height: 100%;
     border: 1px solid var(--dark-gray);
     backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
     box-sizing: border-box;
 }
 
 .front {
     z-index: 2;
     background: var(--dark-gray);
+    display: flex;
+    flex-direction: column;
 }
 
 .back {
@@ -112,6 +115,8 @@ main {
     padding:0.5em;
     margin-top: 0.5em;
     letter-spacing: normal;
+    pointer-events: none;
+    flex:1;
 }
 
 .front button {
@@ -292,8 +297,21 @@ footer > div.links {
 }
 
 @media (max-width: 480px) {
+    main {
+        padding: 30px 10px;
+    }
+
     #card {
-        height: 84vw;
+        height: 93vw;
+    }
+
+    .back {
+        font-size:14px;
+        padding-top:20px;
+    }
+
+    .help sub {
+        line-height:1.2em;
     }
 
     .front p {
@@ -311,7 +329,6 @@ footer > div.links {
 
     .button {
         font-size: 18px;
-        margin: 0 0 10px;
     }
 
     .button.small {
@@ -337,6 +354,9 @@ footer > div.links {
         flex-direction: column;
     }
 
+    footer br {
+        display:none;
+    }
 }
 
 @media print {
