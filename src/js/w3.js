@@ -1,15 +1,16 @@
-import abiDecode from './abidecode.js'
+import abiDecoder from 'abi-decoder'
 import { ABI, ADDRESS, TESTADDRESS } from './contract.js'
 import { update, onStateChange, getState } from './state.js'
+import Web3 from 'web3'
 
-abiDecode.addABI(ABI)
+abiDecoder.addABI(ABI)
 let web3js = null
 let CONTRACT = null
 let NETWORKID = null
 
 function getContract () {
   if (!CONTRACT) {
-    CONTRACT = getNetwork().then(netId => web3js.eth.contract(ABI).at(netId === '1' ? ADDRESS : TESTADDRESS))
+    CONTRACT = getNetwork().then(netId => new web3.eth.Contract(ABI,netId === '1' ? ADDRESS : TESTADDRESS))
   }
 
   return CONTRACT
@@ -48,7 +49,7 @@ export function getLovers (tx_hash) {
   return new Promise(resolve => {
     web3js.eth.getTransactionReceipt(tx_hash, function (error, rcpt) {
       if (error === null && rcpt && rcpt.logs && rcpt.blockNumber) {
-        const events = abiDecode.decodeLogs(rcpt.logs)
+        const events = abiDecoder.decodeLogs(rcpt.logs)
         let names = []
         if (events.length) {
           names = events[0].events.map(eventData => eventData.value)
@@ -157,9 +158,7 @@ export function startPolling(tx_hash, maxConfirmation) {
 
 export function getNetwork () {
   if (!NETWORKID) {
-    NETWORKID = new Promise(resolve => {
-      web3js.version.getNetwork((err, netId) => resolve(netId))
-    })
+    NETWORKID = web3js.eth.net.getId()
   }
   return NETWORKID
 }
