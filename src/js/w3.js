@@ -10,7 +10,7 @@ let NETWORKID = null
 
 function getContract () {
   if (!CONTRACT) {
-    CONTRACT = getNetwork().then(netId => new web3.eth.Contract(ABI,netId === '1' ? ADDRESS : TESTADDRESS))
+    CONTRACT = getNetwork().then(netId => new web3js.eth.Contract(ABI,netId === '1' ? ADDRESS : TESTADDRESS))
   }
 
   return CONTRACT
@@ -25,18 +25,23 @@ export function getWeb3FromURL (url) {
   return getWeb3(new Web3.providers.HttpProvider(url))
 }
 
-export function prove (name1, name2) {
-  return getContract().then(contract => new Promise(resolve => {
-    gtag('event','start',{
-      event_category:'prove'
-    })
-    contract.prove(name1, name2, (error, result) => {
+export async function prove (name1, name2) {
+  const accounts = await web3js.eth.getAccounts();
+  console.log(accounts)
+  const contract = await getContract();
+  gtag('event','start',{
+    event_category:'prove'
+  })
+  const result = contract.methods.prove(name1, name2).send({gas: 50000, from:accounts[0]});
+
+  return new Promise(resolve => {
+    result.once('transactionHash',(txHash) => {
       gtag('event','end',{
         event_category:'prove'
       })
-      resolve(result)
+      resolve(txHash)
     })
-  }))
+  });
 }
 
 export function getLovers (tx_hash) {
@@ -46,19 +51,18 @@ export function getLovers (tx_hash) {
     return Promise.resolve(false)
   }
 
-  return new Promise(resolve => {
-    web3js.eth.getTransactionReceipt(tx_hash, function (error, rcpt) {
-      if (error === null && rcpt && rcpt.logs && rcpt.blockNumber) {
-        const events = abiDecoder.decodeLogs(rcpt.logs)
-        let names = []
-        if (events.length) {
-          names = events[0].events.map(eventData => eventData.value)
-        }
-        update({rcpt, names})
+  return web3js.eth.getTransactionReceipt(tx_hash).then(rcpt => {
+    if (rcpt && rcpt.logs && rcpt.blockNumber) {
+      const events = abiDecoder.decodeLogs(rcpt.logs)
+      let names = []
+      if (events.length) {
+        names = events[0].events.map(eventData => eventData.value)
       }
-      resolve(true)
-    })
+      update({rcpt, names})
+    }
+    return true
   })
+
 }
 
 function getTimestamp () {
@@ -72,14 +76,12 @@ function getTimestamp () {
     return Promise.resolve(true)
   }
 
-  return new Promise(resolve => {
-    web3js.eth.getBlock(rcpt.blockNumber, function (error, block) {
-      if (error === null && block && block.timestamp) {
-        let timestamp = new Date(block.timestamp * 1000).toISOString()
-        update({timestamp})
-      }
-      resolve(true)
-    })
+  return web3js.eth.getBlock(rcpt.blockNumber).then(block => {
+    if (block && block.timestamp) {
+      let timestamp = new Date(block.timestamp * 1000).toISOString()
+      update({timestamp})
+    }
+    return true
   })
 }
 
