@@ -1,7 +1,11 @@
 import { getWeb3, prove, getNetwork, getNetworkUrl } from './w3.js'
 import { createHeart, getColorPalette } from './heart.js';
+import Portis from '@portis/web3';
+
 
 const card = document.getElementById('card');
+const PORTIS_APP_ID='41af45bb-dc18-4307-9c65-e992283b0640';
+const PORTIS_NET = 'rinkeby'
 
 document.addEventListener('click', (e) => {
   const button = document.getElementById('flip-button');
@@ -38,16 +42,17 @@ window.addEventListener('load', () => {
       event_category:'startup'
     })
   } else {
-    ready = Promise.reject();
-    console.log('No web3? You should consider trying MetaMask!');
-    card.classList.add('no-metamask');
-    gtag('event','no-metamask',{
+    const portis = new Portis(PORTIS_APP_ID, PORTIS_NET);
+
+    ready = Promise.resolve(getWeb3(portis.provider));
+    //card.classList.add('no-metamask');
+    gtag('event','portis',{
       event_category:'startup'
     })
 
   }
 
-  ready.then(() => {
+  ready.then((web3) => {
     web3.eth.getAccounts((err, acc) => {
       if (acc.length === 0) {
         console.log('no acc')
