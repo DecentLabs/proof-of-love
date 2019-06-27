@@ -1,4 +1,4 @@
-import abiDecode from './abidecode.js'
+import abiDecode from 'abi-decoder/dist/abi-decoder.js'
 import { ABI, ADDRESS, TESTADDRESS } from './contract.js'
 import { update, onStateChange, getState } from './state.js'
 

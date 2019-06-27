@@ -8,6 +8,7 @@
     "clean": "rm -rvf dist .cache"
   },
   "dependencies": {
+    "abi-decoder": "^1.2.0",
     "assets": "^3.0.0",
     "lit-html": "^0.12.0",
     "qrcode": "^1.3.3"
