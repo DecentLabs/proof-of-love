@@ -1,9 +1,7 @@
-import abiDecoder from 'abi-decoder'
 import { ABI, ADDRESS, TESTADDRESS } from './contract.js'
 import { update, onStateChange, getState } from './state.js'
 import Web3 from 'web3'
 
-abiDecoder.addABI(ABI)
 let web3js = null
 let CONTRACT = null
 let NETWORKID = null
@@ -51,12 +49,15 @@ export function getLovers (tx_hash) {
     return Promise.resolve(false)
   }
 
-  return web3js.eth.getTransactionReceipt(tx_hash).then(rcpt => {
-    if (rcpt && rcpt.logs && rcpt.blockNumber) {
-      const events = abiDecoder.decodeLogs(rcpt.logs)
+  return web3js.eth.getTransactionReceipt(tx_hash).then(async rcpt => {
+
+    const contract = await getContract();
+
+    if (rcpt && rcpt.logs && rcpt.logs.length && rcpt.blockNumber) {
+      const result = await contract.getPastEvents('Love',{fromBlock: rcpt.blockNumber});
       let names = []
-      if (events.length) {
-        names = events[0].events.map(eventData => eventData.value)
+      if (result && result.length) {
+        names = [result[0].returnValues[0],result[0].returnValues[1]]
       }
       update({rcpt, names})
     }
@@ -88,6 +89,7 @@ function getTimestamp () {
 function getConfirmation (tx_hash, maxConfirmation) {
 
   const {confirmed} = getState()
+  console.log('confirmed',confirmed)
 
   if(confirmed === 1) {
     gtag('event','first confirmation',{
@@ -106,7 +108,7 @@ function getConfirmation (tx_hash, maxConfirmation) {
 
   return new Promise((resolve) => {
     web3js.eth.getTransaction(tx_hash, function (error, response) {
-      if (error !== null) {
+      if (error) {
         update({pending: true, hasError: true, error})
         resolve(true)
       } else {
@@ -115,7 +117,7 @@ function getConfirmation (tx_hash, maxConfirmation) {
           resolve(true)
         } else {
           web3js.eth.getBlockNumber(function (error, latestBlockNumber) {
-            if (error !== null) {
+            if (error) {
               console.log('Error:' + error)
             }
             const numConfirmations = (latestBlockNumber - response.blockNumber) + 1
@@ -149,6 +151,7 @@ export function startPolling(tx_hash, maxConfirmation) {
     if (!state.loading && state.needsPolling) {
       update({loading: true})
       setTimeout(() => poll().then((polls) => {
+        console.log(polls);
         const needsPolling = polls.some(poll => poll)
         update({loading: false, needsPolling})
       }), 1000)
