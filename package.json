@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "parcel src/index.html src/proof.html src/privacy.html",
-    "build": "parcel build --no-minify src/index.html src/proof.html src/privacy.html",
+    "build": "parcel build --no-minify src/index.html src/proof.html src/privacy.html; echo 'proofoflove.digital' >dist/CNAME",
     "clean": "rm -rvf dist .cache"
   },
   "dependencies": {
