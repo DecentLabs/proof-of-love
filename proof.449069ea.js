@@ -64750,11 +64750,10 @@ function _prove() {
 
           case 2:
             accounts = _context2.sent;
-            console.log(accounts);
-            _context2.next = 6;
+            _context2.next = 5;
             return getContract();
 
-          case 6:
+          case 5:
             contract = _context2.sent;
             gtag('event', 'start', {
               event_category: 'prove'
@@ -64772,7 +64771,7 @@ function _prove() {
               });
             }));
 
-          case 10:
+          case 9:
           case "end":
             return _context2.stop();
         }
@@ -65072,4 +65071,4 @@ makeQRCode();
 }, ['timestamp', 'names', 'imageURL']);
 (0, _w.startPolling)(tx_hash, 2);
 },{"qrcode":"xCW/","./partials.js":"7u4x","./heart.js":"Jqyl","./state.js":"7ceU","./w3.js":"MqHU"}]},{},["sWGI"], null)
-//# sourceMappingURL=/proof.58b3eb05.map
+//# sourceMappingURL=/proof.8975dadd.map

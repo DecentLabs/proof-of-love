@@ -59690,11 +59690,10 @@ function _prove() {
 
           case 2:
             accounts = _context2.sent;
-            console.log(accounts);
-            _context2.next = 6;
+            _context2.next = 5;
             return getContract();
 
-          case 6:
+          case 5:
             contract = _context2.sent;
             gtag('event', 'start', {
               event_category: 'prove'
@@ -59712,7 +59711,7 @@ function _prove() {
               });
             }));
 
-          case 10:
+          case 9:
           case "end":
             return _context2.stop();
         }
@@ -60058,74 +60057,70 @@ document.addEventListener('click', function (e) {
 
   if (e.target === button) {
     card.classList.add('flip');
-  }
-});
-window.addEventListener('load', function () {
-  var loveForm = document.getElementById('love-form');
-  var errormsg = document.getElementById('error-msg');
-  var name1Element = document.getElementById('name1');
-  var name2Element = document.getElementById('name2');
-  var homeCanvas = document.getElementById('home-canvas');
-  var hash = "0x".concat('f00f'.repeat(16));
-  var palette = (0, _heart.getColorPalette)(true);
-  (0, _heart.createHeart)(hash, homeCanvas, palette);
-  var ready = null;
+    var ready = null;
 
-  if (window.ethereum) {
-    (0, _w.getWeb3)(ethereum);
-    ready = ethereum.enable();
-    gtag('event', 'metamask', {
-      event_category: 'startup'
-    });
-  } else if (window.web3) {
-    // Use Mist/MetaMask's provider
-    (0, _w.getWeb3)(web3.currentProvider);
-    ready = Promise.resolve();
-    gtag('event', 'old-metamask', {
-      event_category: 'startup'
-    });
-  } else {
-    var portis = new _web.default(PORTIS_APP_ID, PORTIS_NET);
-    ready = Promise.resolve((0, _w.getWeb3)(portis.provider)); //card.classList.add('no-metamask');
-
-    gtag('event', 'portis', {
-      event_category: 'startup'
-    });
-  }
-
-  ready.then(function (web3) {
-    web3.eth.getAccounts(function (err, acc) {
-      if (acc.length === 0) {
-        console.log('no acc');
-        card.classList.add('no-login');
-      }
-    });
-    loveForm.addEventListener('submit', function (event) {
-      event.preventDefault();
-      gtag('event', 'start proving', {
-        event_category: 'send',
-        event_value: (name1 && name1.trim().length) + '|' + (name2 && name2.trim().length)
+    if (window.ethereum) {
+      (0, _w.getWeb3)(ethereum);
+      ready = ethereum.enable();
+      gtag('event', 'metamask', {
+        event_category: 'startup'
       });
-      var name1 = name1Element.value;
-      var name2 = name2Element.value;
+    } else if (window.web3) {
+      // Use Mist/MetaMask's provider
+      (0, _w.getWeb3)(web3.currentProvider);
+      ready = Promise.resolve();
+      gtag('event', 'old-metamask', {
+        event_category: 'startup'
+      });
+    } else {
+      var portis = new _web.default(PORTIS_APP_ID, PORTIS_NET);
+      ready = Promise.resolve((0, _w.getWeb3)(portis.provider));
+      gtag('event', 'portis', {
+        event_category: 'startup'
+      });
+    }
 
-      if (name1 && name2 && name1.trim().length && name2.trim().length) {
-        Promise.all([(0, _w.prove)(name1, name2), (0, _w.getNetwork)()]).then(function (_ref) {
-          var _ref2 = _slicedToArray(_ref, 2),
-              hash = _ref2[0],
-              network = _ref2[1];
-
-          gtag('event', 'network ' + network, {
-            event_category: 'send'
-          });
-
-          if (hash !== undefined) {
-            window.location.href = "/proof.html?".concat(hash).concat(network !== '1' ? '@' + network : '');
-          }
-        });
-      }
+    ready.then(function () {
+      return start();
     });
-  });
+  }
 });
+
+function start() {
+  loveForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+    gtag('event', 'start proving', {
+      event_category: 'send',
+      event_value: (name1 && name1.trim().length) + '|' + (name2 && name2.trim().length)
+    });
+    var name1 = name1Element.value;
+    var name2 = name2Element.value;
+
+    if (name1 && name2 && name1.trim().length && name2.trim().length) {
+      Promise.all([(0, _w.prove)(name1, name2), (0, _w.getNetwork)()]).then(function (_ref) {
+        var _ref2 = _slicedToArray(_ref, 2),
+            hash = _ref2[0],
+            network = _ref2[1];
+
+        gtag('event', 'network ' + network, {
+          event_category: 'send'
+        });
+
+        if (hash !== undefined) {
+          window.location.href = "/proof.html?".concat(hash).concat(network !== '1' ? '@' + network : '');
+        }
+      });
+    }
+  });
+}
+
+var loveForm = document.getElementById('love-form');
+var errormsg = document.getElementById('error-msg');
+var name1Element = document.getElementById('name1');
+var name2Element = document.getElementById('name2');
+var homeCanvas = document.getElementById('home-canvas');
+var hash = "0x".concat('f00f'.repeat(16));
+var palette = (0, _heart.getColorPalette)(true);
+(0, _heart.createHeart)(hash, homeCanvas, palette);
 },{"./w3.js":"MqHU","./heart.js":"Jqyl","@portis/web3":"QO3x"}]},{},["ySCt"], null)
-//# sourceMappingURL=/send.5a9adbe8.map
+//# sourceMappingURL=/send.96ea52b4.map
