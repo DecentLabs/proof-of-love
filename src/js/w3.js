@@ -25,7 +25,6 @@ export function getWeb3FromURL (url) {
 
 export async function prove (name1, name2) {
   const accounts = await web3js.eth.getAccounts();
-  console.log(accounts)
   const contract = await getContract();
   gtag('event','start',{
     event_category:'prove'
