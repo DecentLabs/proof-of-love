@@ -43,13 +43,12 @@ window.addEventListener('load', () => {
     })
   } else {
     const portis = new Portis(PORTIS_APP_ID, PORTIS_NET);
-
-    ready = Promise.resolve(getWeb3(portis.provider));
-    //card.classList.add('no-metamask');
+    ready = new Promise(resolve => {
+      portis.onLogin(() => resolve(getWeb3(portis.provider)))
+    })
     gtag('event','portis',{
       event_category:'startup'
     })
-
   }
 
   ready.then((web3) => {
