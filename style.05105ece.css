@@ -31,6 +31,16 @@ main {
     box-sizing: border-box;
 }
 
+.waiting form {
+    display: none;
+}
+#wait-msg {
+    display: none;
+}
+.waiting #wait-msg {
+    display:block;
+    text-align: center;
+}
 
 .row {
     display: flex;

@@ -60074,7 +60074,12 @@ document.addEventListener('click', function (e) {
       });
     } else {
       var portis = new _web.default(PORTIS_APP_ID, PORTIS_NET);
-      ready = Promise.resolve((0, _w.getWeb3)(portis.provider));
+      ready = new Promise(function (resolve) {
+        portis.showPortis();
+        portis.onLogin(function () {
+          resolve((0, _w.getWeb3)(portis.provider));
+        });
+      });
       gtag('event', 'portis', {
         event_category: 'startup'
       });
@@ -60087,6 +60092,7 @@ document.addEventListener('click', function (e) {
 });
 
 function start() {
+  card.classList.remove('waiting');
   loveForm.addEventListener('submit', function (event) {
     event.preventDefault();
     gtag('event', 'start proving', {
@@ -60115,7 +60121,6 @@ function start() {
 }
 
 var loveForm = document.getElementById('love-form');
-var errormsg = document.getElementById('error-msg');
 var name1Element = document.getElementById('name1');
 var name2Element = document.getElementById('name2');
 var homeCanvas = document.getElementById('home-canvas');
@@ -60123,4 +60128,4 @@ var hash = "0x".concat('f00f'.repeat(16));
 var palette = (0, _heart.getColorPalette)(true);
 (0, _heart.createHeart)(hash, homeCanvas, palette);
 },{"./w3.js":"MqHU","./heart.js":"Jqyl","@portis/web3":"QO3x"}]},{},["ySCt"], null)
-//# sourceMappingURL=/send.96ea52b4.map
+//# sourceMappingURL=/send.d9b4e002.map
