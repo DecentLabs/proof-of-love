@@ -28,7 +28,12 @@ document.addEventListener('click', (e) => {
       })
     } else {
       const portis = new Portis(PORTIS_APP_ID, PORTIS_NET)
-      ready = Promise.resolve(getWeb3(portis.provider))
+      ready = new Promise(resolve => {
+        portis.showPortis();
+        portis.onLogin(() => {
+          resolve(getWeb3(portis.provider))
+        })
+      })
       gtag('event', 'portis', {
         event_category: 'startup'
       })
@@ -39,6 +44,7 @@ document.addEventListener('click', (e) => {
 })
 
 function start () {
+  card.classList.remove('waiting');
   loveForm.addEventListener('submit', function (event) {
     event.preventDefault()
 
@@ -68,7 +74,6 @@ function start () {
 }
 
 const loveForm = document.getElementById('love-form')
-const errormsg = document.getElementById('error-msg')
 const name1Element = document.getElementById('name1')
 const name2Element = document.getElementById('name2')
 const homeCanvas = document.getElementById('home-canvas')
