@@ -60074,12 +60074,8 @@ document.addEventListener('click', function (e) {
       });
     } else {
       var portis = new _web.default(PORTIS_APP_ID, PORTIS_NET);
-      ready = new Promise(function (resolve) {
-        portis.showPortis();
-        portis.onLogin(function () {
-          resolve((0, _w.getWeb3)(portis.provider));
-        });
-      });
+      ready = portis.provider.enable();
+      (0, _w.getWeb3)(portis.provider);
       gtag('event', 'portis', {
         event_category: 'startup'
       });
@@ -60128,4 +60124,4 @@ var hash = "0x".concat('f00f'.repeat(16));
 var palette = (0, _heart.getColorPalette)(true);
 (0, _heart.createHeart)(hash, homeCanvas, palette);
 },{"./w3.js":"MqHU","./heart.js":"Jqyl","@portis/web3":"QO3x"}]},{},["ySCt"], null)
-//# sourceMappingURL=/send.d9b4e002.map
+//# sourceMappingURL=/send.58649475.map
