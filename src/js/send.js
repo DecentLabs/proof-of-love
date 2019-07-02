@@ -28,12 +28,8 @@ document.addEventListener('click', (e) => {
       })
     } else {
       const portis = new Portis(PORTIS_APP_ID, PORTIS_NET)
-      ready = new Promise(resolve => {
-        portis.showPortis();
-        portis.onLogin(() => {
-          resolve(getWeb3(portis.provider))
-        })
-      })
+      ready = portis.provider.enable();
+      getWeb3(portis.provider)
       gtag('event', 'portis', {
         event_category: 'startup'
       })
