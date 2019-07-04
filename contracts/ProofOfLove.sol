@@ -25,4 +25,9 @@ contract ProofOfLove is RelayRecipient {
     function post_relayed_call(address relay, address from, bytes memory encoded_function, bool success, uint used_gas, uint transaction_fee)
     public {
     }
+
+    function deposit()
+    public payable {
+        get_relay_hub().depositFor.value(msg.value)(address(this));
+    }
 }
