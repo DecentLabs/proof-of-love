@@ -89,6 +89,16 @@ module.exports = {
           ),
       network_id: 4,
       gasPrice: 6000000000 // 6 Gwei,
+    },
+    ropsten: {
+      provider: () =>
+          new HDWalletProvider(
+              MNEMONIC,
+              "https://ropsten.infura.io/" + INFURA_API_KEY,
+              DEPLOYER_ADDRESS_INDEX
+          ),
+      network_id: 3,
+      gasPrice: 6000000000 // 6 Gwei,
     }
   },
 
