@@ -1,4 +1,4 @@
-import { ABI, ADDRESS, TESTADDRESS } from './contract.js'
+import { ABI, ADDRESS } from './contract.js'
 import { update, onStateChange, getState } from './state.js'
 import Web3 from 'web3'
 
@@ -8,7 +8,7 @@ let NETWORKID = null
 
 function getContract () {
   if (!CONTRACT) {
-    CONTRACT = getNetwork().then(netId => new web3js.eth.Contract(ABI,netId === '1' ? ADDRESS : TESTADDRESS))
+    CONTRACT = getNetwork().then(netId => new web3js.eth.Contract(ABI, ADDRESS[netId]))
   }
 
   return CONTRACT
