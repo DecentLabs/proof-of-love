@@ -6,7 +6,8 @@
     "start": "parcel src/index.html src/proof.html src/privacy.html",
     "build": "parcel build --no-minify src/index.html src/proof.html src/privacy.html; echo 'proofoflove.digital' >dist/CNAME",
     "clean": "rm -rvf dist .cache build",
-    "compile": "truffle compile"
+    "compile": "truffle compile",
+    "deploy": "truffle migrate"
   },
   "dependencies": {
     "@portis/web3": "^2.0.0-beta.31",
