@@ -30,7 +30,7 @@ document.addEventListener('click', (e) => {
       })
     } else {
       console.log('using portis')
-      const portis = new Portis(PORTIS_APP_ID, PORTIS_NET)
+      const portis = new Portis(PORTIS_APP_ID, PORTIS_NET, { gasRelay: true })
       ready = portis.provider.enable();
       getWeb3(portis.provider)
       gtag('event', 'portis', {
