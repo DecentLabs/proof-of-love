@@ -4,7 +4,7 @@ import Portis from '@portis/web3'
 
 const card = document.getElementById('card')
 const PORTIS_APP_ID = '41af45bb-dc18-4307-9c65-e992283b0640'
-const PORTIS_NET = 'rinkeby'
+const PORTIS_NET = 'ropsten'
 
 document.addEventListener('click', (e) => {
   const button = document.getElementById('flip-button')
