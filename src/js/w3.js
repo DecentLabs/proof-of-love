@@ -14,6 +14,7 @@ function getContract() {
 }
 
 export function getWeb3 (provider) {
+  console.log('creating new web3js from provider: ', provider)
   web3js = new Web3(provider)
   return web3js
 }
@@ -25,6 +26,9 @@ export function getWeb3FromURL (url) {
 export async function prove (name1, name2) {
   const accounts = await web3js.eth.getAccounts();
   const contract = await getContract();
+  console.log('contract: ', contract)
+  console.log('contract.address: ', contract.address)
+
   gtag('event','start',{
     event_category:'prove'
   })

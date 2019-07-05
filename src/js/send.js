@@ -14,12 +14,14 @@ document.addEventListener('click', (e) => {
     let ready = null
 
     if (window.ethereum) {
+      console.log('using window.ethereum')
       getWeb3(ethereum)
       ready = ethereum.enable()
       gtag('event', 'metamask', {
         event_category: 'startup'
       })
     } else if (window.web3) {
+      console.log('using window.web3')
       // Use Mist/MetaMask's provider
       getWeb3(web3.currentProvider)
       ready = Promise.resolve()
@@ -27,6 +29,7 @@ document.addEventListener('click', (e) => {
         event_category: 'startup'
       })
     } else {
+      console.log('using portis')
       const portis = new Portis(PORTIS_APP_ID, PORTIS_NET)
       ready = portis.provider.enable();
       getWeb3(portis.provider)
