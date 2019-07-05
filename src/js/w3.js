@@ -4,13 +4,15 @@ import Web3 from 'web3'
 
 let web3js = null
 let CONTRACT = null
-let NETWORKID = null
+let NETWORKID = '3'
 
-function getContract () {
+function getContract() {
+  console.log('getContract')
+  console.log(getNetwork().then(x => console.log(x)))
   if (!CONTRACT) {
     CONTRACT = getNetwork().then(netId => new web3js.eth.Contract(ABI, ADDRESS[netId]))
   }
-
+  console.log(CONTRACT)
   return CONTRACT
 }
 
@@ -162,9 +164,12 @@ export function startPolling(tx_hash, maxConfirmation) {
 
 export function getNetwork () {
   if (!NETWORKID) {
-    NETWORKID = web3js.eth.net.getId()
+    return web3js.eth.net.getId()
+  } else {
+    return new Promise(function(resolve, reject) {
+      resolve(NETWORKID)
+    })
   }
-  return NETWORKID
 }
 
 export function getNetworkUrl (id) {
