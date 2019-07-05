@@ -7,12 +7,9 @@ let CONTRACT = null
 let NETWORKID = '3'
 
 function getContract() {
-  console.log('getContract')
-  console.log(getNetwork().then(x => console.log(x)))
   if (!CONTRACT) {
     CONTRACT = getNetwork().then(netId => new web3js.eth.Contract(ABI, ADDRESS[netId]))
   }
-  console.log(CONTRACT)
   return CONTRACT
 }
 
