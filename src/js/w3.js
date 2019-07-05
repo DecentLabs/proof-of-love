@@ -29,6 +29,9 @@ export async function prove (name1, name2) {
   console.log('contract: ', contract)
   console.log('contract.address: ', contract.address)
 
+  console.log('accounts: ', accounts)
+  console.log('accounts[0]: ', accounts[0])
+
   gtag('event','start',{
     event_category:'prove'
   })
