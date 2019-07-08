@@ -1,4 +1,4 @@
-import { ABI, ADDRESS, TESTADDRESS } from './contract.js'
+import { ABI, ADDRESS } from './contract.js'
 import { update, onStateChange, getState } from './state.js'
 import Web3 from 'web3'
 
@@ -6,15 +6,15 @@ let web3js = null
 let CONTRACT = null
 let NETWORKID = null
 
-function getContract () {
+function getContract() {
   if (!CONTRACT) {
-    CONTRACT = getNetwork().then(netId => new web3js.eth.Contract(ABI,netId === '1' ? ADDRESS : TESTADDRESS))
+    CONTRACT = getNetwork().then(netId => new web3js.eth.Contract(ABI, ADDRESS[netId]))
   }
-
   return CONTRACT
 }
 
 export function getWeb3 (provider) {
+  console.log('creating new web3js from provider: ', provider)
   web3js = new Web3(provider)
   return web3js
 }
@@ -26,6 +26,9 @@ export function getWeb3FromURL (url) {
 export async function prove (name1, name2) {
   const accounts = await web3js.eth.getAccounts();
   const contract = await getContract();
+
+  console.log('sending prove transaction: from ', accounts[0], ", to ", contract.address)
+
   gtag('event','start',{
     event_category:'prove'
   })
@@ -169,6 +172,8 @@ export function getNetwork () {
 
 export function getNetworkUrl (id) {
   switch (id) {
+    case '3':
+      return 'https://ropsten.infura.io/'
     case '4':
       return 'https://rinkeby.infura.io/'
     default:

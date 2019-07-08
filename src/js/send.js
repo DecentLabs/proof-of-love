@@ -4,22 +4,32 @@ import Portis from '@portis/web3'
 
 const card = document.getElementById('card')
 const PORTIS_APP_ID = '41af45bb-dc18-4307-9c65-e992283b0640'
-const PORTIS_NET = 'rinkeby'
+const PORTIS_NETWORKS = {
+  '1': { name: 'mainnet', options: { gasRelay: false } },
+  '3': { name: 'ropsten', options: { gasRelay: true } },
+  '4': { name: 'rinkeby', options: { gasRelay: false } }
+}
+const DEFAULT_NETWORK = '1'
 
 document.addEventListener('click', (e) => {
   const button = document.getElementById('flip-button')
+  const networkId = decodeURIComponent(window.location.search.slice(1).split('&')[0]).split('@')[1] || DEFAULT_NETWORK
+  console.log('networkId: ', networkId)
+
   if (e.target === button) {
     card.classList.add('flip')
 
     let ready = null
 
     if (window.ethereum) {
+      console.log('using window.ethereum')
       getWeb3(ethereum)
       ready = ethereum.enable()
       gtag('event', 'metamask', {
         event_category: 'startup'
       })
     } else if (window.web3) {
+      console.log('using window.web3')
       // Use Mist/MetaMask's provider
       getWeb3(web3.currentProvider)
       ready = Promise.resolve()
@@ -27,8 +37,10 @@ document.addEventListener('click', (e) => {
         event_category: 'startup'
       })
     } else {
-      const portis = new Portis(PORTIS_APP_ID, PORTIS_NET)
-      ready = portis.provider.enable();
+      const network = PORTIS_NETWORKS[networkId]
+      console.log('using portis on', network.name)
+      const portis = new Portis(PORTIS_APP_ID, network.name, network.options)
+      ready = portis.provider.enable()
       getWeb3(portis.provider)
       gtag('event', 'portis', {
         event_category: 'startup'
