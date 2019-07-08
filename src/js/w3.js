@@ -26,11 +26,8 @@ export function getWeb3FromURL (url) {
 export async function prove (name1, name2) {
   const accounts = await web3js.eth.getAccounts();
   const contract = await getContract();
-  console.log('contract: ', contract)
-  console.log('contract.address: ', contract.address)
 
-  console.log('accounts: ', accounts)
-  console.log('accounts[0]: ', accounts[0])
+  console.log('sending prove transaction: from ', accounts[0], ", to ", contract.address)
 
   gtag('event','start',{
     event_category:'prove'
