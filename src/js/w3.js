@@ -4,7 +4,7 @@ import Web3 from 'web3'
 
 let web3js = null
 let CONTRACT = null
-let NETWORKID = '3'
+let NETWORKID = null
 
 function getContract() {
   if (!CONTRACT) {
@@ -168,12 +168,9 @@ export function startPolling(tx_hash, maxConfirmation) {
 
 export function getNetwork () {
   if (!NETWORKID) {
-    return web3js.eth.net.getId()
-  } else {
-    return new Promise(function(resolve, reject) {
-      resolve(NETWORKID)
-    })
+    NETWORKID = web3js.eth.net.getId()
   }
+  return NETWORKID
 }
 
 export function getNetworkUrl (id) {
