@@ -15,7 +15,7 @@ The project is open source, available at https://github.com/DecentLabs/proof-of-
 Team:
  * @dfogaras
  * @rszaloki
- * @phraktle
- * @treer-euedge
+ * @treerz
  * @juli_e
  * @brigittaforrai
+ * @phraktle
