@@ -6,6 +6,8 @@ Proof of Love preserves your love message on the Ethereum blockchain. A referenc
 
 Proof of Love is the most durable way to engrave a love message in a publicly visible way. According to experts, the blockchain would even survive a nuclear war and preserve your feelings, unlike more traditional methods.
 
+## Beyond Blockchain hackathon
+
 As part of the Beyond Blockchain hackathon, we have added support for the portis.io wallet and the Ethereum Gas Station Network for gasless payments (supported by donations). Thus even no-coiners can enjoy this service to preserve these unforgettable moments on the blockchain.
 
 The app was built at an earlier hack week at Decent Labs, however, it didn't quite get the use (one could say, Love) from users who were not already familiar with the Ethereum ecosystem and have Metamask setup and a couple of Wei stashed in their wallet. Let's just say the UX was prohibitively complex for most un-initiated users to bother.
@@ -16,7 +18,7 @@ Gasless payments can be tested on the Ropsten testnet (mainnet support coming so
 
 The project is open source, available at https://github.com/DecentLabs/proof-of-love
 
-Contributors:
+## Contributors
  * @dfogaras
  * @rszaloki
  * @treerz
