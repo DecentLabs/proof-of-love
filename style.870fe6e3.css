@@ -73,7 +73,7 @@ main {
     height: 350px;
     transition: 0.6s;
     transform-style: preserve-3d;
-    backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
 }
 
 #card.flip {
@@ -89,7 +89,7 @@ main {
     height: 100%;
     border: 1px solid var(--dark-gray);
     box-sizing: border-box;
-    backface-visibility: inherit;
+    backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
 }
 
@@ -407,4 +407,4 @@ footer > div.links {
 
 
 
-/*# sourceMappingURL=/style.8eeaace7.css.map */
+/*# sourceMappingURL=/style.870fe6e3.css.map */
