@@ -5,21 +5,28 @@ import Portis from '@portis/web3'
 const card = document.getElementById('card')
 const PORTIS_APP_ID = '41af45bb-dc18-4307-9c65-e992283b0640'
 const PORTIS_NETWORKS = {
-  '1': { name: 'mainnet', options: { gasRelay: false } },
-  '3': { name: 'ropsten', options: { gasRelay: true } },
-  '4': { name: 'rinkeby', options: { gasRelay: false } }
+  '1': {name: 'mainnet', options: {gasRelay: false} },
+  '3': {name: 'ropsten', options: {gasRelay: true}},
+  '4': {name: 'rinkeby', options: {gasRelay: false}}
 }
 const DEFAULT_NETWORK = '1'
+const loveForm = document.getElementById('love-form')
+const name1Element = document.getElementById('name1')
+const name2Element = document.getElementById('name2')
+const homeCanvas = document.getElementById('home-canvas')
+const hash = `0x${'f00f'.repeat(16)}`
+const palette = getColorPalette(true)
+const button = document.getElementById('flip-button')
+let ready = null
 
-document.addEventListener('click', (e) => {
-  const button = document.getElementById('flip-button')
-  const networkId = decodeURIComponent(window.location.search.slice(1).split('&')[0]).split('@')[1] || DEFAULT_NETWORK
-  console.log('networkId: ', networkId)
+const connectListener = (e) => {
+  if (ready === null) {
+    console.log('ready listener')
 
-  if (e.target === button) {
+    const networkId = decodeURIComponent(window.location.search.slice(1).split('&')[0]).split('@')[1] || DEFAULT_NETWORK
+    console.log('networkId: ', networkId)
+
     card.classList.add('flip')
-
-    let ready = null
 
     if (window.ethereum) {
       console.log('using window.ethereum')
@@ -47,12 +54,17 @@ document.addEventListener('click', (e) => {
       })
     }
 
-    ready.then(() => start())
+    ready.then(() => {
+      button.removeEventListener('click', connectListener)
+      console.log('ready!')
+      start()
+    })
   }
-})
+}
+
 
 function start () {
-  card.classList.remove('waiting');
+  card.classList.remove('waiting')
   loveForm.addEventListener('submit', function (event) {
     event.preventDefault()
 
@@ -81,13 +93,7 @@ function start () {
   })
 }
 
-const loveForm = document.getElementById('love-form')
-const name1Element = document.getElementById('name1')
-const name2Element = document.getElementById('name2')
-const homeCanvas = document.getElementById('home-canvas')
-const hash = `0x${'f00f'.repeat(16)}`
-const palette = getColorPalette(true)
-
 createHeart(hash, homeCanvas, palette)
 
+button.addEventListener('click', connectListener)
 
