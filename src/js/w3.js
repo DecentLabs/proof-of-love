@@ -170,13 +170,15 @@ export function getNetwork () {
   return NETWORKID
 }
 
+const PROJECT_ID = "74da141783924247af90195c2d747c36"
+
 export function getNetworkUrl (id) {
   switch (id) {
     case '3':
-      return 'https://ropsten.infura.io/'
+      return 'https://ropsten.infura.io/v3/' + PROJECT_ID
     case '4':
-      return 'https://rinkeby.infura.io/'
+      return 'https://rinkeby.infura.io/v3/' + PROJECT_ID
     default:
-      return 'https://mainnet.infura.io/'
+      return 'https://mainnet.infura.io/v3/' + PROJECT_ID
   }
 }
